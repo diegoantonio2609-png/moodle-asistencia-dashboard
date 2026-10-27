@@ -746,7 +746,7 @@
       </div>
       <div>
         <span class="header__title">Ibero León</span>
-        <span class="header__subtitle">Tablero de Asistencia</span>
+        <span class="header__subtitle">Dashboard</span>
       </div>
     </a>
 
@@ -799,12 +799,12 @@
       <ul class="sidebar__nav" role="list">
 
         <li>
-          <a href="#" class="nav-item__link is-active" aria-current="page">
+          <a href="index.html" class="nav-item__link is-active" aria-current="page">
             <svg class="nav-item__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M2 9L9 2l7 7"/>
               <path d="M4 7v8a1 1 0 001 1h3v-4h2v4h3a1 1 0 001-1V7"/>
             </svg>
-            Inicio
+            Dashboard
           </a>
         </li>
 
@@ -815,7 +815,18 @@
               <path d="M6 3v12M12 3v12M2 9h14"/>
             </svg>
             Mis Cursos
-            <span class="nav-item__badge" aria-label="5 cursos activos">5</span>
+            <span class="nav-item__badge" aria-label="3 cursos activos">3</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="nav-item__link">
+            <svg class="nav-item__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 15v-1.5a3 3 0 00-3-3H5a3 3 0 00-3 3V15"/>
+              <circle cx="7" cy="5.5" r="2.5"/>
+              <path d="M16 15v-1a2.5 2.5 0 00-2-2.4M13 3.6a2.5 2.5 0 010 4.8"/>
+            </svg>
+            Comunidad
           </a>
         </li>
 
@@ -879,9 +890,12 @@
       <!-- Cabecera de sección -->
       <div class="main__header">
         <div>
-          <h1 class="main__title">Panel de inicio</h1>
+          <div class="main__title-wrap">
+            <h1 class="main__title">Dashboard</h1>
+            <span class="role-badge role-badge--docente">Vista Docente</span>
+          </div>
           <p class="main__breadcrumb">
-            Ibero León / <span>Tablero de Asistencia</span>
+            Ibero León / <span>Dashboard Docente</span>
           </p>
         </div>
         <button class="btn-primary" type="button">
@@ -1181,230 +1195,260 @@
       </section>
 
       <!-- ═══════════════════════════════════════════════════════════════════
-           SECCIÓN 2 — GADGETS DE MONITOREO DOCENTE (FASE 5 & 8)
+           SECCIÓN 2 — ORGANIZADOR DE ACTIVIDADES HÍBRIDO (100% ANCHO)
            ═══════════════════════════════════════════════════════════════════ -->
-      <section aria-label="Monitoreo y seguimiento docente" class="gadgets-section">
+      <section aria-label="Organizador de actividades">
 
-        <div class="section-header">
-          <h2 class="section-title">Monitoreo y Seguimiento Docente</h2>
-          <span class="section-count" aria-label="3 módulos activos">3 módulos</span>
-        </div>
-
-        <div class="gadgets-grid">
-
-          <!-- ── GADGET 1: Organizador de Actividades Híbrido (Lista / Calendario) ── -->
-          <article class="monitoring-card monitoring-card--wide" aria-label="Organizador de actividades híbrido">
-            <div class="monitoring-card__header organizer-header">
-              <div class="monitoring-card__title-group">
-                <svg class="monitoring-card__icon" viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="2" y="3" width="12" height="11" rx="2"/>
-                  <path d="M5 1v3M11 1v3M2 7h12"/>
-                </svg>
-                <h3 class="monitoring-card__title">Organizador de Actividades</h3>
-              </div>
-
-              <!-- Conmutador en esquina superior derecha: [Vista Lista] y [Vista Calendario] -->
-              <div class="view-switcher" role="tablist" aria-label="Conmutar vista de actividades">
-                <button class="view-btn is-active" type="button" role="tab" aria-selected="true" data-view="list" id="view-btn-list-doc" aria-controls="organizer-list-view-doc">
-                  <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="1" y1="3" x2="13" y2="3"/>
-                    <line x1="1" y1="7" x2="13" y2="7"/>
-                    <line x1="1" y1="11" x2="13" y2="11"/>
-                  </svg>
-                  Vista Lista
-                </button>
-                <button class="view-btn" type="button" role="tab" aria-selected="false" data-view="calendar" id="view-btn-calendar-doc" aria-controls="organizer-calendar-view-doc">
-                  <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <rect x="1" y="2" width="12" height="10" rx="2"/>
-                    <path d="M4 1v2M10 1v2M1 5h12"/>
-                  </svg>
-                  Vista Calendario
-                </button>
-              </div>
+        <article class="monitoring-card monitoring-card--full" aria-label="Organizador de actividades híbrido">
+          <div class="monitoring-card__header organizer-header">
+            <div class="monitoring-card__title-group">
+              <svg class="monitoring-card__icon" viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="3" width="12" height="11" rx="2"/>
+                <path d="M5 1v3M11 1v3M2 7h12"/>
+              </svg>
+              <h3 class="monitoring-card__title">Organizador de Actividades</h3>
             </div>
 
-            <div class="monitoring-card__body">
+            <!-- Conmutador en esquina superior derecha: [Vista Lista] y [Vista Calendario] -->
+            <div class="view-switcher" role="tablist" aria-label="Conmutar vista de actividades">
+              <button class="view-btn is-active" type="button" role="tab" aria-selected="true" data-view="list" id="view-btn-list-doc" aria-controls="organizer-list-view-doc">
+                <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="1" y1="3" x2="13" y2="3"/>
+                  <line x1="1" y1="7" x2="13" y2="7"/>
+                  <line x1="1" y1="11" x2="13" y2="11"/>
+                </svg>
+                Vista Lista
+              </button>
+              <button class="view-btn" type="button" role="tab" aria-selected="false" data-view="calendar" id="view-btn-calendar-doc" aria-controls="organizer-calendar-view-doc">
+                <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="1" y="2" width="12" height="10" rx="2"/>
+                  <path d="M4 1v2M10 1v2M1 5h12"/>
+                </svg>
+                Vista Calendario
+              </button>
+            </div>
+          </div>
 
-              <!-- ── 1. VISTA LISTA: Pestañas temporales actuales (Hoy, Esta semana, Próxima semana) ── -->
-              <div class="list-view-container" id="organizer-list-view-doc" role="tabpanel" aria-labelledby="view-btn-list-doc">
+          <div class="monitoring-card__body">
 
-                <!-- Pestañas temporales -->
-                <div class="activity-tabs" role="tablist" aria-label="Filtro temporal de entregas">
-                  <button class="activity-tab is-active" type="button" role="tab" aria-selected="true" data-tab="tab-today" id="tab-btn-today" aria-controls="panel-today">
-                    Hoy <span class="activity-tab__badge">2</span>
-                  </button>
-                  <button class="activity-tab" type="button" role="tab" aria-selected="false" data-tab="tab-week" id="tab-btn-week" aria-controls="panel-week">
-                    Esta semana <span class="activity-tab__badge">3</span>
-                  </button>
-                  <button class="activity-tab" type="button" role="tab" aria-selected="false" data-tab="tab-next" id="tab-btn-next" aria-controls="panel-next">
-                    Próxima semana <span class="activity-tab__badge">2</span>
-                  </button>
+            <!-- ── 1. VISTA LISTA: Split-View (70% Tareas + 30% Panel Lateral) ── -->
+            <div class="list-view-container" id="organizer-list-view-doc" role="tabpanel" aria-labelledby="view-btn-list-doc">
+
+              <div class="list-view-split">
+
+                <!-- Columna Principal (70%): Secuencia cronológica -->
+                <div class="list-view-main">
+                  <!-- Pestañas temporales -->
+                  <div class="activity-tabs" role="tablist" aria-label="Filtro temporal de entregas">
+                    <button class="activity-tab is-active" type="button" role="tab" aria-selected="true" data-tab="tab-today" id="tab-btn-today" aria-controls="panel-today">
+                      Hoy <span class="activity-tab__badge">2</span>
+                    </button>
+                    <button class="activity-tab" type="button" role="tab" aria-selected="false" data-tab="tab-week" id="tab-btn-week" aria-controls="panel-week">
+                      Esta semana <span class="activity-tab__badge">3</span>
+                    </button>
+                    <button class="activity-tab" type="button" role="tab" aria-selected="false" data-tab="tab-next" id="tab-btn-next" aria-controls="panel-next">
+                      Próxima semana <span class="activity-tab__badge">2</span>
+                    </button>
+                  </div>
+
+                  <!-- Paneles de contenido temporal -->
+                  <div class="activity-panels" style="margin-top: var(--space-3);">
+
+                    <!-- Panel: Hoy -->
+                    <div class="activity-panel is-active" id="panel-today" role="tabpanel" aria-labelledby="tab-btn-today">
+
+                      <div class="activity-item">
+                        <div class="activity-item__header">
+                          <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
+                          <span class="activity-item__time">
+                            <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <circle cx="6" cy="6" r="5"/>
+                              <path d="M6 3v3l2 1"/>
+                            </svg>
+                            Hoy, 23:59 hrs
+                          </span>
+                        </div>
+                        <h4 class="activity-item__title">Tarea 1: Wireframes y Guía de Estilos</h4>
+                        <div class="activity-item__footer">
+                          <span class="activity-item__deliveries"><strong>18 de 24</strong> entregaron (75%)</span>
+                          <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                            <div class="activity-item__deliveries-fill" style="width: 75%;"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="activity-item">
+                        <div class="activity-item__header">
+                          <span class="activity-item__course">INF-305 · Programación Web</span>
+                          <span class="activity-item__time">
+                            <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <circle cx="6" cy="6" r="5"/>
+                              <path d="M6 3v3l2 1"/>
+                            </svg>
+                            Hoy, 20:00 hrs
+                          </span>
+                        </div>
+                        <h4 class="activity-item__title">Práctica 2: Maquetación Responsive CSS</h4>
+                        <div class="activity-item__footer">
+                          <span class="activity-item__deliveries"><strong>15 de 18</strong> entregaron (83%)</span>
+                          <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100">
+                            <div class="activity-item__deliveries-fill" style="width: 83.3%;"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <!-- Panel: Esta semana -->
+                    <div class="activity-panel" id="panel-week" role="tabpanel" aria-labelledby="tab-btn-week">
+
+                      <div class="activity-item">
+                        <div class="activity-item__header">
+                          <span class="activity-item__course">ING-410 · Proyectos de Ing.</span>
+                          <span class="activity-item__time">
+                            <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <circle cx="6" cy="6" r="5"/>
+                              <path d="M6 3v3l2 1"/>
+                            </svg>
+                            Jueves, 18:00 hrs
+                          </span>
+                        </div>
+                        <h4 class="activity-item__title">Avance 1: Marco Teórico y Justificación</h4>
+                        <div class="activity-item__footer">
+                          <span class="activity-item__deliveries"><strong>24 de 30</strong> entregaron (80%)</span>
+                          <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                            <div class="activity-item__deliveries-fill" style="width: 80%;"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="activity-item">
+                        <div class="activity-item__header">
+                          <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
+                          <span class="activity-item__time">
+                            <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <circle cx="6" cy="6" r="5"/>
+                              <path d="M6 3v3l2 1"/>
+                            </svg>
+                            Viernes, 23:59 hrs
+                          </span>
+                        </div>
+                        <h4 class="activity-item__title">Cuestionario 1: Principios de UX/UI</h4>
+                        <div class="activity-item__footer">
+                          <span class="activity-item__deliveries"><strong>21 de 24</strong> entregaron (88%)</span>
+                          <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
+                            <div class="activity-item__deliveries-fill" style="width: 88%;"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="activity-item">
+                        <div class="activity-item__header">
+                          <span class="activity-item__course">INF-305 · Programación Web</span>
+                          <span class="activity-item__time">
+                            <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <circle cx="6" cy="6" r="5"/>
+                              <path d="M6 3v3l2 1"/>
+                            </svg>
+                            Sábado, 14:00 hrs
+                          </span>
+                        </div>
+                        <h4 class="activity-item__title">Laboratorio 3: Formulario Validado con JS</h4>
+                        <div class="activity-item__footer">
+                          <span class="activity-item__deliveries"><strong>12 de 18</strong> entregaron (67%)</span>
+                          <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">
+                            <div class="activity-item__deliveries-fill" style="width: 67%;"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <!-- Panel: Próxima semana -->
+                    <div class="activity-panel" id="panel-next" role="tabpanel" aria-labelledby="tab-btn-next">
+
+                      <div class="activity-item">
+                        <div class="activity-item__header">
+                          <span class="activity-item__course">ING-410 · Proyectos de Ing.</span>
+                          <span class="activity-item__time">
+                            <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <circle cx="6" cy="6" r="5"/>
+                              <path d="M6 3v3l2 1"/>
+                            </svg>
+                            Mar 3 Nov, 18:00 hrs
+                          </span>
+                        </div>
+                        <h4 class="activity-item__title">Avance 2: Cronograma y Diagrama Gantt</h4>
+                        <div class="activity-item__footer">
+                          <span class="activity-item__deliveries"><strong>6 de 30</strong> entregaron (20%)</span>
+                          <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <div class="activity-item__deliveries-fill" style="width: 20%;"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="activity-item">
+                        <div class="activity-item__header">
+                          <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
+                          <span class="activity-item__time">
+                            <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <circle cx="6" cy="6" r="5"/>
+                              <path d="M6 3v3l2 1"/>
+                            </svg>
+                            Jue 5 Nov, 23:59 hrs
+                          </span>
+                        </div>
+                        <h4 class="activity-item__title">Prototipo Interactivo en Figma (Sprint 1)</h4>
+                        <div class="activity-item__footer">
+                          <span class="activity-item__deliveries"><strong>3 de 24</strong> entregaron (13%)</span>
+                          <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="13" aria-valuemin="0" aria-valuemax="100">
+                            <div class="activity-item__deliveries-fill" style="width: 13%;"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
                 </div>
 
-                <!-- Paneles de contenido temporal -->
-                <div class="activity-panels" style="margin-top: var(--space-3);">
+                <!-- Columna Lateral (30%): Resumen y Filtros Rápidos -->
+                <aside class="list-view-sidebar" aria-label="Resumen y filtros del organizador">
+                  <div class="summary-panel">
+                    <h4 class="summary-panel__title">Resumen de Entregas</h4>
+                    <ul class="summary-panel__list" role="list">
+                      <li class="summary-panel__item">
+                        <span class="summary-panel__label">Entregas Hoy</span>
+                        <span class="summary-panel__val summary-panel__val--alert">2 actividades</span>
+                      </li>
+                      <li class="summary-panel__item">
+                        <span class="summary-panel__label">Esta Semana</span>
+                        <span class="summary-panel__val">3 actividades</span>
+                      </li>
+                      <li class="summary-panel__item">
+                        <span class="summary-panel__label">Próxima Semana</span>
+                        <span class="summary-panel__val">2 programadas</span>
+                      </li>
+                    </ul>
 
-                  <!-- Panel: Hoy -->
-                  <div class="activity-panel is-active" id="panel-today" role="tabpanel" aria-labelledby="tab-btn-today">
+                    <div class="summary-panel__divider" role="separator"></div>
 
-                    <div class="activity-item">
-                      <div class="activity-item__header">
-                        <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
-                        <span class="activity-item__time">
-                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="6" cy="6" r="5"/>
-                            <path d="M6 3v3l2 1"/>
-                          </svg>
-                          Hoy, 23:59 hrs
-                        </span>
-                      </div>
-                      <h4 class="activity-item__title">Tarea 1: Wireframes y Guía de Estilos</h4>
-                      <div class="activity-item__footer">
-                        <span class="activity-item__deliveries"><strong>18 de 24</strong> entregaron (75%)</span>
-                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                          <div class="activity-item__deliveries-fill" style="width: 75%;"></div>
-                        </div>
-                      </div>
+                    <h4 class="summary-panel__title">Filtros Rápidos</h4>
+                    <div class="summary-panel__filters">
+                      <button type="button" class="summary-chip is-active">Todos los grupos</button>
+                      <button type="button" class="summary-chip">INF-201 · Grupo A</button>
+                      <button type="button" class="summary-chip">INF-305 · Grupo B</button>
+                      <button type="button" class="summary-chip">ING-410 · Grupo C</button>
                     </div>
-
-                    <div class="activity-item">
-                      <div class="activity-item__header">
-                        <span class="activity-item__course">INF-305 · Programación Web</span>
-                        <span class="activity-item__time">
-                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="6" cy="6" r="5"/>
-                            <path d="M6 3v3l2 1"/>
-                          </svg>
-                          Hoy, 20:00 hrs
-                        </span>
-                      </div>
-                      <h4 class="activity-item__title">Práctica 2: Maquetación Responsive CSS</h4>
-                      <div class="activity-item__footer">
-                        <span class="activity-item__deliveries"><strong>15 de 18</strong> entregaron (83%)</span>
-                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100">
-                          <div class="activity-item__deliveries-fill" style="width: 83.3%;"></div>
-                        </div>
-                      </div>
-                    </div>
-
                   </div>
-
-                  <!-- Panel: Esta semana -->
-                  <div class="activity-panel" id="panel-week" role="tabpanel" aria-labelledby="tab-btn-week">
-
-                    <div class="activity-item">
-                      <div class="activity-item__header">
-                        <span class="activity-item__course">ING-410 · Proyectos de Ing.</span>
-                        <span class="activity-item__time">
-                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="6" cy="6" r="5"/>
-                            <path d="M6 3v3l2 1"/>
-                          </svg>
-                          Jueves, 18:00 hrs
-                        </span>
-                      </div>
-                      <h4 class="activity-item__title">Avance 1: Marco Teórico y Justificación</h4>
-                      <div class="activity-item__footer">
-                        <span class="activity-item__deliveries"><strong>24 de 30</strong> entregaron (80%)</span>
-                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                          <div class="activity-item__deliveries-fill" style="width: 80%;"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="activity-item">
-                      <div class="activity-item__header">
-                        <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
-                        <span class="activity-item__time">
-                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="6" cy="6" r="5"/>
-                            <path d="M6 3v3l2 1"/>
-                          </svg>
-                          Viernes, 23:59 hrs
-                        </span>
-                      </div>
-                      <h4 class="activity-item__title">Cuestionario 1: Principios de UX/UI</h4>
-                      <div class="activity-item__footer">
-                        <span class="activity-item__deliveries"><strong>21 de 24</strong> entregaron (88%)</span>
-                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
-                          <div class="activity-item__deliveries-fill" style="width: 88%;"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="activity-item">
-                      <div class="activity-item__header">
-                        <span class="activity-item__course">INF-305 · Programación Web</span>
-                        <span class="activity-item__time">
-                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="6" cy="6" r="5"/>
-                            <path d="M6 3v3l2 1"/>
-                          </svg>
-                          Sábado, 14:00 hrs
-                        </span>
-                      </div>
-                      <h4 class="activity-item__title">Laboratorio 3: Formulario Validado con JS</h4>
-                      <div class="activity-item__footer">
-                        <span class="activity-item__deliveries"><strong>12 de 18</strong> entregaron (67%)</span>
-                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">
-                          <div class="activity-item__deliveries-fill" style="width: 67%;"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <!-- Panel: Próxima semana -->
-                  <div class="activity-panel" id="panel-next" role="tabpanel" aria-labelledby="tab-btn-next">
-
-                    <div class="activity-item">
-                      <div class="activity-item__header">
-                        <span class="activity-item__course">ING-410 · Proyectos de Ing.</span>
-                        <span class="activity-item__time">
-                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="6" cy="6" r="5"/>
-                            <path d="M6 3v3l2 1"/>
-                          </svg>
-                          Mar 3 Nov, 18:00 hrs
-                        </span>
-                      </div>
-                      <h4 class="activity-item__title">Avance 2: Cronograma y Diagrama Gantt</h4>
-                      <div class="activity-item__footer">
-                        <span class="activity-item__deliveries"><strong>6 de 30</strong> entregaron (20%)</span>
-                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <div class="activity-item__deliveries-fill" style="width: 20%;"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="activity-item">
-                      <div class="activity-item__header">
-                        <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
-                        <span class="activity-item__time">
-                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="6" cy="6" r="5"/>
-                            <path d="M6 3v3l2 1"/>
-                          </svg>
-                          Jue 5 Nov, 23:59 hrs
-                        </span>
-                      </div>
-                      <h4 class="activity-item__title">Prototipo Interactivo en Figma (Sprint 1)</h4>
-                      <div class="activity-item__footer">
-                        <span class="activity-item__deliveries"><strong>3 de 24</strong> entregaron (13%)</span>
-                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="13" aria-valuemin="0" aria-valuemax="100">
-                          <div class="activity-item__deliveries-fill" style="width: 13%;"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                </div>
+                </aside>
 
               </div>
 
-              <!-- ── 2. VISTA CALENDARIO: Cuadrícula mensual (Octubre 2026) ── -->
-              <div class="calendar-view" id="organizer-calendar-view-doc" role="tabpanel" aria-labelledby="view-btn-calendar-doc">
+            </div>
+
+            <!-- ── 2. VISTA CALENDARIO: Cuadrícula mensual (Octubre 2026) ── -->
+            <div class="calendar-view" id="organizer-calendar-view-doc" role="tabpanel" aria-labelledby="view-btn-calendar-doc">
 
                 <!-- Panel de Filtros y Botones de Acción -->
                 <div class="calendar-toolbar">
@@ -1763,7 +1807,191 @@
             </div>
           </article>
 
-        </div><!-- /gadgets-grid -->
+        </div><!-- /gadgets-grid-half -->
+      </section>
+
+        </div><!-- /monitoring-card -->
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════════════
+           SECCIÓN 3 — MONITOREO Y SEGUIMIENTO DOCENTE (50% / 50%)
+           ═══════════════════════════════════════════════════════════════════ -->
+      <section aria-label="Monitoreo y seguimiento docente" class="gadgets-section">
+
+        <div class="section-header">
+          <h2 class="section-title">Monitoreo y Seguimiento Docente</h2>
+          <span class="section-count" aria-label="2 módulos activos">2 módulos</span>
+        </div>
+
+        <div class="gadgets-grid-half">
+
+          <!-- ── GADGET 2: Radar de Alumnos Inactivos ── -->
+          <article class="monitoring-card" aria-label="Radar de alumnos inactivos con más de 7 días sin ingreso">
+            <div class="monitoring-card__header">
+              <div class="monitoring-card__title-group">
+                <svg class="monitoring-card__icon" viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13z"/>
+                  <path d="M8 5v3.5l2 1.5"/>
+                </svg>
+                <h3 class="monitoring-card__title">Radar de Inactividad</h3>
+              </div>
+              <span class="monitoring-card__badge-alert" aria-label="3 alumnos con más de 7 días de inactividad">
+                3 en alerta (&gt;7d)
+              </span>
+            </div>
+
+            <div class="monitoring-card__body">
+              <ul class="inactive-list" role="list">
+
+                <!-- Alumno 1 -->
+                <li class="inactive-item">
+                  <div class="inactive-item__left">
+                    <div class="inactive-item__avatar" aria-hidden="true">AM</div>
+                    <div class="inactive-item__info">
+                      <h4 class="inactive-item__name">Alejandro Morales Ríos</h4>
+                      <span class="inactive-item__course">INF-201 · Diseño de Interfaces</span>
+                      <span class="inactive-item__days">
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+                          <circle cx="4" cy="4" r="3.5"/>
+                        </svg>
+                        12 días inactivo
+                      </span>
+                    </div>
+                  </div>
+                  <button class="btn-quick-msg" type="button" aria-label="Enviar mensaje a Alejandro Morales Ríos">
+                    <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h2v2l3-2h5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+                    </svg>
+                    Mensaje
+                  </button>
+                </li>
+
+                <!-- Alumno 2 -->
+                <li class="inactive-item">
+                  <div class="inactive-item__left">
+                    <div class="inactive-item__avatar" aria-hidden="true">SV</div>
+                    <div class="inactive-item__info">
+                      <h4 class="inactive-item__name">Sofía Valenzuela Gómez</h4>
+                      <span class="inactive-item__course">INF-305 · Programación Web</span>
+                      <span class="inactive-item__days">
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+                          <circle cx="4" cy="4" r="3.5"/>
+                        </svg>
+                        9 días inactiva
+                      </span>
+                    </div>
+                  </div>
+                  <button class="btn-quick-msg" type="button" aria-label="Enviar mensaje a Sofía Valenzuela Gómez">
+                    <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h2v2l3-2h5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+                    </svg>
+                    Mensaje
+                  </button>
+                </li>
+
+                <!-- Alumno 3 -->
+                <li class="inactive-item">
+                  <div class="inactive-item__left">
+                    <div class="inactive-item__avatar" aria-hidden="true">CO</div>
+                    <div class="inactive-item__info">
+                      <h4 class="inactive-item__name">Carlos Ortiz Mendoza</h4>
+                      <span class="inactive-item__course">ING-410 · Proyectos de Ing.</span>
+                      <span class="inactive-item__days">
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+                          <circle cx="4" cy="4" r="3.5"/>
+                        </svg>
+                        8 días inactivo
+                      </span>
+                    </div>
+                  </div>
+                  <button class="btn-quick-msg" type="button" aria-label="Enviar mensaje a Carlos Ortiz Mendoza">
+                    <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h2v2l3-2h5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+                    </svg>
+                    Mensaje
+                  </button>
+                </li>
+
+              </ul>
+
+              <p class="monitoring-card__note">Alerta preventiva: Umbral institucional &gt; 7 días sin conexión a Moodle</p>
+            </div>
+          </article>
+
+          <!-- ── GADGET 3: Minigráfico de Distribución de Calificaciones ── -->
+          <article class="monitoring-card" aria-label="Distribución de calificaciones por rangos">
+            <div class="monitoring-card__header">
+              <div class="monitoring-card__title-group">
+                <svg class="monitoring-card__icon" viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2 14h12M4 11V7M8 11V3M12 11V5"/>
+                </svg>
+                <h3 class="monitoring-card__title">Distribución de Notas</h3>
+              </div>
+              <span class="monitoring-card__tag">72 evaluados</span>
+            </div>
+
+            <div class="monitoring-card__body">
+
+              <!-- Resumen del promedio general -->
+              <div class="grade-summary-bar">
+                <span class="grade-summary-bar__label">Promedio General Activo</span>
+                <span class="grade-summary-bar__value">84.2% · Satisfactorio</span>
+              </div>
+
+              <!-- Gráfico de barras por rangos -->
+              <div class="grade-chart" role="region" aria-label="Barras de distribución de calificaciones">
+
+                <!-- Rango 1: 90-100% (Sobresaliente) -->
+                <div class="grade-row">
+                  <div class="grade-row__header">
+                    <span class="grade-row__range">90–100% <span class="grade-row__title">(Sobresaliente)</span></span>
+                    <span class="grade-row__count">28 alum. (39%)</span>
+                  </div>
+                  <div class="grade-row__track" role="progressbar" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100">
+                    <div class="grade-row__bar grade-row__bar--sobresaliente" style="width: 38.9%;"></div>
+                  </div>
+                </div>
+
+                <!-- Rango 2: 80-89% (Satisfactorio) -->
+                <div class="grade-row">
+                  <div class="grade-row__header">
+                    <span class="grade-row__range">80–89% <span class="grade-row__title">(Satisfactorio)</span></span>
+                    <span class="grade-row__count">24 alum. (33%)</span>
+                  </div>
+                  <div class="grade-row__track" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
+                    <div class="grade-row__bar grade-row__bar--satisfactorio" style="width: 33.3%;"></div>
+                  </div>
+                </div>
+
+                <!-- Rango 3: 70-79% (Suficiente) -->
+                <div class="grade-row">
+                  <div class="grade-row__header">
+                    <span class="grade-row__range">70–79% <span class="grade-row__title">(Suficiente)</span></span>
+                    <span class="grade-row__count">13 alum. (18%)</span>
+                  </div>
+                  <div class="grade-row__track" role="progressbar" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
+                    <div class="grade-row__bar grade-row__bar--suficiente" style="width: 18.1%;"></div>
+                  </div>
+                </div>
+
+                <!-- Rango 4: <70% (En Riesgo - Alerta Roja Ibero León) -->
+                <div class="grade-row grade-row--risk">
+                  <div class="grade-row__header">
+                    <span class="grade-row__range">&lt;70% <span class="grade-row__title">(En Riesgo)</span></span>
+                    <span class="grade-row__count">7 alum. (10%)</span>
+                  </div>
+                  <div class="grade-row__track" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                    <div class="grade-row__bar grade-row__bar--riesgo" style="width: 9.7%;"></div>
+                  </div>
+                </div>
+
+              </div>
+
+              <p class="monitoring-card__note">7 estudiantes requieren intervención académica preventiva</p>
+            </div>
+          </article>
+
+        </div><!-- /gadgets-grid-half -->
       </section>
 
     </main><!-- /main -->
