@@ -142,43 +142,39 @@
 
 
   /* ===========================================================================
-     3. PESTAÑAS TEMPORALES DEL ORGANIZADOR DE ACTIVIDADES
+     3. CONMUTADOR DE VISTA DEL ORGANIZADOR HÍBRIDO (VISTA LISTA / VISTA CALENDARIO)
      =========================================================================== */
 
-  function initActivityTabs() {
-    const tabs = document.querySelectorAll('.activity-tab');
-    if (!tabs.length) return;
+  function initViewSwitcher() {
+    const viewSwitchers = document.querySelectorAll('.view-switcher');
+    if (!viewSwitchers.length) return;
 
-    const panels = {
-      'tab-today': document.getElementById('panel-today'),
-      'tab-week': document.getElementById('panel-week'),
-      'tab-next': document.getElementById('panel-next')
-    };
+    viewSwitchers.forEach(switcher => {
+      const buttons = switcher.querySelectorAll('.view-btn');
+      const cardBody = switcher.closest('.monitoring-card')?.querySelector('.monitoring-card__body');
+      if (!cardBody) return;
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const targetId = tab.getAttribute('data-tab');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const viewType = btn.getAttribute('data-view'); // 'list' o 'calendar'
 
-        // Actualizar estados visuales y de accesibilidad de pestañas
-        tabs.forEach(t => {
-          t.classList.remove('is-active');
-          t.setAttribute('aria-selected', 'false');
-        });
+          buttons.forEach(b => {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
 
-        tab.classList.add('is-active');
-        tab.setAttribute('aria-selected', 'true');
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
 
-        // Alternar visibilidad de paneles correspondientes
-        Object.keys(panels).forEach(key => {
-          const panel = panels[key];
-          if (panel) {
-            const isActive = (key === targetId);
-            panel.classList.toggle('is-active', isActive);
-            if (isActive) {
-              panel.removeAttribute('hidden');
-            } else {
-              panel.setAttribute('hidden', 'true');
-            }
+          const listView = cardBody.querySelector('.list-view-container');
+          const calendarView = cardBody.querySelector('.calendar-view');
+
+          if (viewType === 'list') {
+            if (listView) listView.style.display = 'block';
+            if (calendarView) calendarView.classList.remove('is-active');
+          } else if (viewType === 'calendar') {
+            if (listView) listView.style.display = 'none';
+            if (calendarView) calendarView.classList.add('is-active');
           }
         });
       });
@@ -187,7 +183,112 @@
 
 
   /* ===========================================================================
-     4. INTERACCIONES RÁPIDAS
+     4. PESTAÑAS TEMPORALES DEL ORGANIZADOR DE ACTIVIDADES (VISTA LISTA)
+     =========================================================================== */
+
+  function initActivityTabs() {
+    const tabs = document.querySelectorAll('.activity-tab');
+    if (!tabs.length) return;
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTabId = tab.getAttribute('data-tab');
+        const container = tab.closest('.list-view-container, .monitoring-card__body');
+        if (!container) return;
+
+        const siblingTabs = container.querySelectorAll('.activity-tab');
+        siblingTabs.forEach(t => {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+        });
+
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const panels = container.querySelectorAll('.activity-panel');
+        panels.forEach(panel => {
+          const panelId = panel.getAttribute('id');
+          const isTarget = panelId === `panel-${targetTabId.replace('tab-', '')}`;
+          panel.classList.toggle('is-active', isTarget);
+          if (isTarget) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', 'true');
+          }
+        });
+      });
+    });
+  }
+
+
+  /* ===========================================================================
+     5. FILTROS DE CATEGORÍA DE EVENTOS DEL CALENDARIO
+     =========================================================================== */
+
+  function initCalendarFilters() {
+    const calendarFilters = document.querySelectorAll('.calendar-filters');
+    if (!calendarFilters.length) return;
+
+    calendarFilters.forEach(filterContainer => {
+      const chips = filterContainer.querySelectorAll('.calendar-chip');
+      const calendarView = filterContainer.closest('.calendar-view');
+      if (!calendarView) return;
+
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const selectedFilter = chip.getAttribute('data-filter'); // 'all', 'limite', 'evaluacion', 'evento', 'calificacion'
+
+          chips.forEach(c => c.classList.remove('is-active'));
+          chip.classList.add('is-active');
+
+          const events = calendarView.querySelectorAll('.calendar-event');
+          events.forEach(event => {
+            const category = event.getAttribute('data-category');
+            if (selectedFilter === 'all' || category === selectedFilter) {
+              event.style.display = 'flex';
+            } else {
+              event.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  }
+
+
+  /* ===========================================================================
+     6. ACCIONES Y BOTONES DEL CALENDARIO
+     =========================================================================== */
+
+  function initCalendarActions() {
+    const gcalButtons = document.querySelectorAll('.btn-gcal');
+    gcalButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        showToast(
+          'Google Calendar',
+          'Sincronizando entregas y evaluaciones de Octubre 2026 con tu cuenta institicional Google...',
+          'success',
+          3500
+        );
+      });
+    });
+
+    const academicButtons = document.querySelectorAll('.btn-academic-cal');
+    academicButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        showToast(
+          'Calendario Académico Ibero León',
+          'Consultando fechas oficiales del periodo Otoño 2026 en Servicios Escolares.',
+          'info',
+          3500
+        );
+      });
+    });
+  }
+
+
+  /* ===========================================================================
+     7. INTERACCIONES RÁPIDAS
      =========================================================================== */
 
   /**
@@ -252,7 +353,7 @@
         e.preventDefault();
 
         // Determinar contexto del curso o equipo
-        const courseCard = this.closest('.course-card');
+        const courseCard = this.closest('.course-card, .student-course-card');
         const collabCard = this.closest('.collab-card');
 
         let titleContext = 'Clase Sincrónica';
@@ -281,12 +382,15 @@
 
 
   /* ===========================================================================
-     5. INICIALIZACIÓN GENERAL DEL DOM
+     8. INICIALIZACIÓN GENERAL DEL DOM
      =========================================================================== */
 
   document.addEventListener('DOMContentLoaded', () => {
     initRoleSwitcher();
+    initViewSwitcher();
     initActivityTabs();
+    initCalendarFilters();
+    initCalendarActions();
     initQuickMessageAction();
     initTeamsIntegrationAction();
   });
