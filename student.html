@@ -26,6 +26,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     /* Header superior */
@@ -124,15 +125,22 @@
     }
 
     /* Layout: Sidebar + Main */
-    .layout {
-      display: grid;
-      grid-template-columns: 240px 1fr;
+    .app-container, .layout {
+      display: flex;
+      height: calc(100vh - 60px);
+      max-height: calc(100vh - 60px);
+      overflow: hidden;
       flex: 1;
-      min-height: calc(100vh - 60px);
     }
 
     /* Sidebar de navegación */
     .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      width: 240px;
+      flex-shrink: 0;
       background-color: var(--surface-secondary);
       border-right: 1px solid var(--border-normal);
       padding: var(--space-4) 0;
@@ -215,13 +223,16 @@
     }
 
     /* Main Content */
-    .main {
+    .main, .main-content {
       padding: var(--space-6);
       display: flex;
       flex-direction: column;
       gap: var(--space-6);
       background-color: var(--surface-primary);
       overflow-y: auto;
+      flex: 1;
+      min-width: 0;
+      height: 100%;
     }
 
     .main__header {
@@ -301,13 +312,13 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .layout {
-        grid-template-columns: 1fr;
+      .app-container, .layout {
+        flex-direction: column;
       }
       .sidebar {
         display: none;
       }
-      .main {
+      .main, .main-content {
         padding: var(--space-4);
       }
     }
@@ -340,7 +351,6 @@
       </div>
       <div>
         <span class="header__title">Ibero León</span>
-        <span class="header__subtitle">Dashboard</span>
       </div>
     </a>
 
@@ -381,7 +391,7 @@
   <!-- =========================================================================
        LAYOUT — Sidebar + Main
        ========================================================================= -->
-  <div class="layout">
+  <div class="app-container">
 
     <!-- =======================================================================
          SIDEBAR — Menú lateral del estudiante
@@ -498,8 +508,8 @@
 
     <!-- =======================================================================
          MAIN — Área principal del estudiante
-         ======================================================================= -->
-    <main class="main" id="main-content" role="main">
+         ========================================================================= -->
+    <main class="main main-content" id="main-content" role="main">
 
       <!-- Cabecera de la sección -->
       <div class="main__header">
@@ -509,7 +519,7 @@
             <span class="role-badge role-badge--estudiante">Vista Estudiante</span>
           </div>
           <p class="main__breadcrumb">
-            Ibero León / Estudiantes / <span>Dashboard Estudiante</span>
+            Ibero León / Estudiantes / <span>Vista Estudiante</span>
           </p>
         </div>
         <button class="btn-primary" type="button">
@@ -1488,7 +1498,7 @@
                   <div class="collab-card__header">
                     <div>
                       <span class="collab-card__course">INF-201 · Diseño de Interfaces</span>
-                      <h4 class="collab-card__name">Squad UX — Proyecto Dashboard Moodle</h4>
+                      <h4 class="collab-card__name">Squad UX — Proyecto Moodle</h4>
                     </div>
                     <div class="collab-avatar-stack" title="4 integrantes del equipo">
                       <div class="collab-avatar" title="Juan Pablo Navarro">JP</div>
@@ -1582,7 +1592,7 @@
 
     </main><!-- /main -->
 
-  </div><!-- /layout -->
+  </div><!-- /app-container -->
 
   <!-- Lógica e interactividad global -->
   <script src="app.js"></script>

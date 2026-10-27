@@ -270,6 +270,77 @@
 
 
 /* =============================================================================
+   LAYOUT SHELL & FIXED SIDEBAR (FASE 10)
+   ============================================================================= */
+
+body {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-secondary);
+  background-color: var(--surface-primary);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  height: 60px;
+  background-color: var(--surface-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-6);
+  gap: var(--space-4);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.app-container,
+.layout {
+  display: flex;
+  height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px);
+  overflow: hidden;
+  flex: 1;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  width: 240px;
+  flex-shrink: 0;
+  background-color: var(--surface-secondary);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4) 0;
+  gap: var(--space-1);
+}
+
+.main,
+.main-content {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
+  background-color: var(--surface-primary);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+
+/* =============================================================================
    FASE 4 — COMPONENTES DE TARJETA DE CURSO (VISTA DOCENTE)
    ============================================================================= */
 
