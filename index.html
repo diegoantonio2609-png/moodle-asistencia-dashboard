@@ -676,8 +676,6 @@
     }
 
     /* =========================================================================
-       WIDGETS ROW — Bloque de gadgets secundarios (debajo de cursos)
-    /* =========================================================================
        GADGETS SECTION — Monitoreo docente (debajo de cursos)
        ========================================================================= */
     .gadgets-section {
@@ -1183,7 +1181,7 @@
       </section>
 
       <!-- ═══════════════════════════════════════════════════════════════════
-           SECCIÓN 2 — GADGETS DE MONITOREO DOCENTE (FASE 5)
+           SECCIÓN 2 — GADGETS DE MONITOREO DOCENTE (FASE 5 & 8)
            ═══════════════════════════════════════════════════════════════════ -->
       <section aria-label="Monitoreo y seguimiento docente" class="gadgets-section">
 
@@ -1194,9 +1192,9 @@
 
         <div class="gadgets-grid">
 
-          <!-- ── GADGET 1: Organizador de Actividades por Tiempo ── -->
-          <article class="monitoring-card monitoring-card--wide" aria-label="Organizador de actividades por tiempo">
-            <div class="monitoring-card__header">
+          <!-- ── GADGET 1: Organizador de Actividades Híbrido (Lista / Calendario) ── -->
+          <article class="monitoring-card monitoring-card--wide" aria-label="Organizador de actividades híbrido">
+            <div class="monitoring-card__header organizer-header">
               <div class="monitoring-card__title-group">
                 <svg class="monitoring-card__icon" viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect x="2" y="3" width="12" height="11" rx="2"/>
@@ -1204,179 +1202,391 @@
                 </svg>
                 <h3 class="monitoring-card__title">Organizador de Actividades</h3>
               </div>
-              <span class="monitoring-card__tag">Próximos cierres</span>
+
+              <!-- Conmutador en esquina superior derecha: [Vista Lista] y [Vista Calendario] -->
+              <div class="view-switcher" role="tablist" aria-label="Conmutar vista de actividades">
+                <button class="view-btn is-active" type="button" role="tab" aria-selected="true" data-view="list" id="view-btn-list-doc" aria-controls="organizer-list-view-doc">
+                  <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="1" y1="3" x2="13" y2="3"/>
+                    <line x1="1" y1="7" x2="13" y2="7"/>
+                    <line x1="1" y1="11" x2="13" y2="11"/>
+                  </svg>
+                  Vista Lista
+                </button>
+                <button class="view-btn" type="button" role="tab" aria-selected="false" data-view="calendar" id="view-btn-calendar-doc" aria-controls="organizer-calendar-view-doc">
+                  <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="1" y="2" width="12" height="10" rx="2"/>
+                    <path d="M4 1v2M10 1v2M1 5h12"/>
+                  </svg>
+                  Vista Calendario
+                </button>
+              </div>
             </div>
 
             <div class="monitoring-card__body">
-              
-              <!-- Pestañas temporales -->
-              <div class="activity-tabs" role="tablist" aria-label="Filtro temporal de entregas">
-                <button class="activity-tab is-active" type="button" role="tab" aria-selected="true" data-tab="tab-today" id="tab-btn-today" aria-controls="panel-today">
-                  Hoy <span class="activity-tab__badge">2</span>
-                </button>
-                <button class="activity-tab" type="button" role="tab" aria-selected="false" data-tab="tab-week" id="tab-btn-week" aria-controls="panel-week">
-                  Esta semana <span class="activity-tab__badge">3</span>
-                </button>
-                <button class="activity-tab" type="button" role="tab" aria-selected="false" data-tab="tab-next" id="tab-btn-next" aria-controls="panel-next">
-                  Próxima semana <span class="activity-tab__badge">2</span>
-                </button>
+
+              <!-- ── 1. VISTA LISTA: Pestañas temporales actuales (Hoy, Esta semana, Próxima semana) ── -->
+              <div class="list-view-container" id="organizer-list-view-doc" role="tabpanel" aria-labelledby="view-btn-list-doc">
+
+                <!-- Pestañas temporales -->
+                <div class="activity-tabs" role="tablist" aria-label="Filtro temporal de entregas">
+                  <button class="activity-tab is-active" type="button" role="tab" aria-selected="true" data-tab="tab-today" id="tab-btn-today" aria-controls="panel-today">
+                    Hoy <span class="activity-tab__badge">2</span>
+                  </button>
+                  <button class="activity-tab" type="button" role="tab" aria-selected="false" data-tab="tab-week" id="tab-btn-week" aria-controls="panel-week">
+                    Esta semana <span class="activity-tab__badge">3</span>
+                  </button>
+                  <button class="activity-tab" type="button" role="tab" aria-selected="false" data-tab="tab-next" id="tab-btn-next" aria-controls="panel-next">
+                    Próxima semana <span class="activity-tab__badge">2</span>
+                  </button>
+                </div>
+
+                <!-- Paneles de contenido temporal -->
+                <div class="activity-panels" style="margin-top: var(--space-3);">
+
+                  <!-- Panel: Hoy -->
+                  <div class="activity-panel is-active" id="panel-today" role="tabpanel" aria-labelledby="tab-btn-today">
+
+                    <div class="activity-item">
+                      <div class="activity-item__header">
+                        <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
+                        <span class="activity-item__time">
+                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="6" cy="6" r="5"/>
+                            <path d="M6 3v3l2 1"/>
+                          </svg>
+                          Hoy, 23:59 hrs
+                        </span>
+                      </div>
+                      <h4 class="activity-item__title">Tarea 1: Wireframes y Guía de Estilos</h4>
+                      <div class="activity-item__footer">
+                        <span class="activity-item__deliveries"><strong>18 de 24</strong> entregaron (75%)</span>
+                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                          <div class="activity-item__deliveries-fill" style="width: 75%;"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="activity-item">
+                      <div class="activity-item__header">
+                        <span class="activity-item__course">INF-305 · Programación Web</span>
+                        <span class="activity-item__time">
+                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="6" cy="6" r="5"/>
+                            <path d="M6 3v3l2 1"/>
+                          </svg>
+                          Hoy, 20:00 hrs
+                        </span>
+                      </div>
+                      <h4 class="activity-item__title">Práctica 2: Maquetación Responsive CSS</h4>
+                      <div class="activity-item__footer">
+                        <span class="activity-item__deliveries"><strong>15 de 18</strong> entregaron (83%)</span>
+                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100">
+                          <div class="activity-item__deliveries-fill" style="width: 83.3%;"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- Panel: Esta semana -->
+                  <div class="activity-panel" id="panel-week" role="tabpanel" aria-labelledby="tab-btn-week">
+
+                    <div class="activity-item">
+                      <div class="activity-item__header">
+                        <span class="activity-item__course">ING-410 · Proyectos de Ing.</span>
+                        <span class="activity-item__time">
+                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="6" cy="6" r="5"/>
+                            <path d="M6 3v3l2 1"/>
+                          </svg>
+                          Jueves, 18:00 hrs
+                        </span>
+                      </div>
+                      <h4 class="activity-item__title">Avance 1: Marco Teórico y Justificación</h4>
+                      <div class="activity-item__footer">
+                        <span class="activity-item__deliveries"><strong>24 de 30</strong> entregaron (80%)</span>
+                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                          <div class="activity-item__deliveries-fill" style="width: 80%;"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="activity-item">
+                      <div class="activity-item__header">
+                        <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
+                        <span class="activity-item__time">
+                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="6" cy="6" r="5"/>
+                            <path d="M6 3v3l2 1"/>
+                          </svg>
+                          Viernes, 23:59 hrs
+                        </span>
+                      </div>
+                      <h4 class="activity-item__title">Cuestionario 1: Principios de UX/UI</h4>
+                      <div class="activity-item__footer">
+                        <span class="activity-item__deliveries"><strong>21 de 24</strong> entregaron (88%)</span>
+                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
+                          <div class="activity-item__deliveries-fill" style="width: 88%;"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="activity-item">
+                      <div class="activity-item__header">
+                        <span class="activity-item__course">INF-305 · Programación Web</span>
+                        <span class="activity-item__time">
+                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="6" cy="6" r="5"/>
+                            <path d="M6 3v3l2 1"/>
+                          </svg>
+                          Sábado, 14:00 hrs
+                        </span>
+                      </div>
+                      <h4 class="activity-item__title">Laboratorio 3: Formulario Validado con JS</h4>
+                      <div class="activity-item__footer">
+                        <span class="activity-item__deliveries"><strong>12 de 18</strong> entregaron (67%)</span>
+                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">
+                          <div class="activity-item__deliveries-fill" style="width: 67%;"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- Panel: Próxima semana -->
+                  <div class="activity-panel" id="panel-next" role="tabpanel" aria-labelledby="tab-btn-next">
+
+                    <div class="activity-item">
+                      <div class="activity-item__header">
+                        <span class="activity-item__course">ING-410 · Proyectos de Ing.</span>
+                        <span class="activity-item__time">
+                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="6" cy="6" r="5"/>
+                            <path d="M6 3v3l2 1"/>
+                          </svg>
+                          Mar 3 Nov, 18:00 hrs
+                        </span>
+                      </div>
+                      <h4 class="activity-item__title">Avance 2: Cronograma y Diagrama Gantt</h4>
+                      <div class="activity-item__footer">
+                        <span class="activity-item__deliveries"><strong>6 de 30</strong> entregaron (20%)</span>
+                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <div class="activity-item__deliveries-fill" style="width: 20%;"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="activity-item">
+                      <div class="activity-item__header">
+                        <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
+                        <span class="activity-item__time">
+                          <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="6" cy="6" r="5"/>
+                            <path d="M6 3v3l2 1"/>
+                          </svg>
+                          Jue 5 Nov, 23:59 hrs
+                        </span>
+                      </div>
+                      <h4 class="activity-item__title">Prototipo Interactivo en Figma (Sprint 1)</h4>
+                      <div class="activity-item__footer">
+                        <span class="activity-item__deliveries"><strong>3 de 24</strong> entregaron (13%)</span>
+                        <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="13" aria-valuemin="0" aria-valuemax="100">
+                          <div class="activity-item__deliveries-fill" style="width: 13%;"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
               </div>
 
-              <!-- Paneles de contenido temporal -->
-              <div class="activity-panels">
+              <!-- ── 2. VISTA CALENDARIO: Cuadrícula mensual (Octubre 2026) ── -->
+              <div class="calendar-view" id="organizer-calendar-view-doc" role="tabpanel" aria-labelledby="view-btn-calendar-doc">
 
-                <!-- Panel: Hoy -->
-                <div class="activity-panel is-active" id="panel-today" role="tabpanel" aria-labelledby="tab-btn-today">
+                <!-- Panel de Filtros y Botones de Acción -->
+                <div class="calendar-toolbar">
                   
-                  <div class="activity-item">
-                    <div class="activity-item__header">
-                      <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
-                      <span class="activity-item__time">
-                        <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <circle cx="6" cy="6" r="5"/>
-                          <path d="M6 3v3l2 1"/>
-                        </svg>
-                        Hoy, 23:59 hrs
-                      </span>
-                    </div>
-                    <h4 class="activity-item__title">Tarea 1: Wireframes y Guía de Estilos</h4>
-                    <div class="activity-item__footer">
-                      <span class="activity-item__deliveries"><strong>18 de 24</strong> entregaron (75%)</span>
-                      <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                        <div class="activity-item__deliveries-fill" style="width: 75%;"></div>
-                      </div>
-                    </div>
+                  <!-- Panel de Filtros por Código de Color -->
+                  <div class="calendar-filters" aria-label="Filtros por tipo de evento">
+                    <span class="calendar-filter-label">Filtrar:</span>
+                    <button class="calendar-chip calendar-chip--all is-active" type="button" data-filter="all">Todos</button>
+                    <button class="calendar-chip calendar-chip--limite" type="button" data-filter="limite">
+                      <span class="calendar-chip__dot event-dot--limite"></span> Límite de entrega
+                    </button>
+                    <button class="calendar-chip calendar-chip--evaluacion" type="button" data-filter="evaluacion">
+                      <span class="calendar-chip__dot event-dot--evaluacion"></span> Evaluación
+                    </button>
+                    <button class="calendar-chip calendar-chip--evento" type="button" data-filter="evento">
+                      <span class="calendar-chip__dot event-dot--evento"></span> Eventos
+                    </button>
+                    <button class="calendar-chip calendar-chip--calificacion" type="button" data-filter="calificacion">
+                      <span class="calendar-chip__dot event-dot--calificacion"></span> Calificaciones
+                    </button>
                   </div>
 
-                  <div class="activity-item">
-                    <div class="activity-item__header">
-                      <span class="activity-item__course">INF-305 · Programación Web</span>
-                      <span class="activity-item__time">
-                        <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <circle cx="6" cy="6" r="5"/>
-                          <path d="M6 3v3l2 1"/>
-                        </svg>
-                        Hoy, 20:00 hrs
-                      </span>
-                    </div>
-                    <h4 class="activity-item__title">Práctica 2: Maquetación Responsive CSS</h4>
-                    <div class="activity-item__footer">
-                      <span class="activity-item__deliveries"><strong>15 de 18</strong> entregaron (83%)</span>
-                      <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100">
-                        <div class="activity-item__deliveries-fill" style="width: 83.3%;"></div>
-                      </div>
-                    </div>
+                  <!-- Botones de Acción del Calendario -->
+                  <div class="calendar-actions">
+                    <button class="btn-calendar-action btn-gcal" type="button">
+                      <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="2" y="3" width="10" height="9" rx="1.5"/>
+                        <line x1="2" y1="6" x2="12" y2="6"/>
+                        <line x1="5" y1="1" x2="5" y2="3"/>
+                        <line x1="9" y1="1" x2="9" y2="3"/>
+                      </svg>
+                      Agregar a Google Calendar
+                    </button>
+                    <button class="btn-calendar-action btn-academic-cal" type="button">
+                      <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M1 4h12M4 1v3M10 1v3M2 2h10a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/>
+                      </svg>
+                      Ver calendario académico
+                    </button>
                   </div>
 
                 </div>
 
-                <!-- Panel: Esta semana -->
-                <div class="activity-panel" id="panel-week" role="tabpanel" aria-labelledby="tab-btn-week">
-                  
-                  <div class="activity-item">
-                    <div class="activity-item__header">
-                      <span class="activity-item__course">ING-410 · Proyectos de Ing.</span>
-                      <span class="activity-item__time">
-                        <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <circle cx="6" cy="6" r="5"/>
-                          <path d="M6 3v3l2 1"/>
-                        </svg>
-                        Jueves, 18:00 hrs
-                      </span>
-                    </div>
-                    <h4 class="activity-item__title">Avance 1: Marco Teórico y Justificación</h4>
-                    <div class="activity-item__footer">
-                      <span class="activity-item__deliveries"><strong>24 de 30</strong> entregaron (80%)</span>
-                      <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                        <div class="activity-item__deliveries-fill" style="width: 80%;"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="activity-item">
-                    <div class="activity-item__header">
-                      <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
-                      <span class="activity-item__time">
-                        <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <circle cx="6" cy="6" r="5"/>
-                          <path d="M6 3v3l2 1"/>
-                        </svg>
-                        Viernes, 23:59 hrs
-                      </span>
-                    </div>
-                    <h4 class="activity-item__title">Cuestionario 1: Principios de UX/UI</h4>
-                    <div class="activity-item__footer">
-                      <span class="activity-item__deliveries"><strong>21 de 24</strong> entregaron (88%)</span>
-                      <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
-                        <div class="activity-item__deliveries-fill" style="width: 88%;"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="activity-item">
-                    <div class="activity-item__header">
-                      <span class="activity-item__course">INF-305 · Programación Web</span>
-                      <span class="activity-item__time">
-                        <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <circle cx="6" cy="6" r="5"/>
-                          <path d="M6 3v3l2 1"/>
-                        </svg>
-                        Sábado, 14:00 hrs
-                      </span>
-                    </div>
-                    <h4 class="activity-item__title">Laboratorio 3: Formulario Validado con JS</h4>
-                    <div class="activity-item__footer">
-                      <span class="activity-item__deliveries"><strong>12 de 18</strong> entregaron (67%)</span>
-                      <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">
-                        <div class="activity-item__deliveries-fill" style="width: 67%;"></div>
-                      </div>
-                    </div>
-                  </div>
-
+                <!-- Mes y año -->
+                <div class="calendar-month-bar">
+                  <h4 class="calendar-month-title">Octubre 2026</h4>
+                  <span style="font-size: 11px; color: var(--text-tertiary);">Periodo Otoño 2026</span>
                 </div>
 
-                <!-- Panel: Próxima semana -->
-                <div class="activity-panel" id="panel-next" role="tabpanel" aria-labelledby="tab-btn-next">
-                  
-                  <div class="activity-item">
-                    <div class="activity-item__header">
-                      <span class="activity-item__course">ING-410 · Proyectos de Ing.</span>
-                      <span class="activity-item__time">
-                        <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <circle cx="6" cy="6" r="5"/>
-                          <path d="M6 3v3l2 1"/>
-                        </svg>
-                        Mar 3 Nov, 18:00 hrs
-                      </span>
-                    </div>
-                    <h4 class="activity-item__title">Avance 2: Cronograma y Diagrama Gantt</h4>
-                    <div class="activity-item__footer">
-                      <span class="activity-item__deliveries"><strong>6 de 30</strong> entregaron (20%)</span>
-                      <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        <div class="activity-item__deliveries-fill" style="width: 20%;"></div>
-                      </div>
-                    </div>
+                <!-- Cuadrícula Mensual de Octubre 2026 (Octubre 1 = Jueves) -->
+                <div class="calendar-grid" role="region" aria-label="Calendario mensual de Octubre 2026">
+                  <!-- Cabecera de días -->
+                  <div class="calendar-day-header">Dom</div>
+                  <div class="calendar-day-header">Lun</div>
+                  <div class="calendar-day-header">Mar</div>
+                  <div class="calendar-day-header">Mié</div>
+                  <div class="calendar-day-header">Jue</div>
+                  <div class="calendar-day-header">Vie</div>
+                  <div class="calendar-day-header">Sáb</div>
+
+                  <!-- Semana 1: Sep 27 - Sep 30 (Días vacíos) + Oct 1 - Oct 3 -->
+                  <div class="calendar-day calendar-day--empty"></div>
+                  <div class="calendar-day calendar-day--empty"></div>
+                  <div class="calendar-day calendar-day--empty"></div>
+                  <div class="calendar-day calendar-day--empty"></div>
+                  <div class="calendar-day"><span class="calendar-day__number">1</span></div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">2</span>
+                    <a href="#" class="calendar-event event-badge--evento" data-category="evento" title="Conferencia de Tecnología">
+                      <span class="calendar-event__title">Simposio UX</span>
+                      <span class="calendar-event__course">Ibero León</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day"><span class="calendar-day__number">3</span></div>
+
+                  <!-- Semana 2: Oct 4 - Oct 10 -->
+                  <div class="calendar-day"><span class="calendar-day__number">4</span></div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">5</span>
+                    <a href="#" class="calendar-event event-badge--calificacion" data-category="calificacion" title="Calificaciones publicadas">
+                      <span class="calendar-event__title">Notas Tarea 1</span>
+                      <span class="calendar-event__course">INF-201</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day"><span class="calendar-day__number">6</span></div>
+                  <div class="calendar-day"><span class="calendar-day__number">7</span></div>
+                  <div class="calendar-day"><span class="calendar-day__number">8</span></div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">9</span>
+                    <a href="#" class="calendar-event event-badge--limite" data-category="limite" title="Límite de entrega: Avance 1">
+                      <span class="calendar-event__title">Avance 1</span>
+                      <span class="calendar-event__course">ING-410</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day"><span class="calendar-day__number">10</span></div>
+
+                  <!-- Semana 3: Oct 11 - Oct 17 -->
+                  <div class="calendar-day"><span class="calendar-day__number">11</span></div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">12</span>
+                    <a href="#" class="calendar-event event-badge--limite" data-category="limite" title="Límite de entrega: Práctica 2">
+                      <span class="calendar-event__title">Práctica 2 CSS</span>
+                      <span class="calendar-event__course">INF-305</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day calendar-day--today">
+                    <span class="calendar-day__number">13</span>
+                    <a href="#" class="calendar-event event-badge--limite" data-category="limite" title="Límite de entrega: Foro Usabilidad">
+                      <span class="calendar-event__title">Foro Usabilidad</span>
+                      <span class="calendar-event__course">INF-201</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day"><span class="calendar-day__number">14</span></div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">15</span>
+                    <a href="#" class="calendar-event event-badge--limite" data-category="limite" title="Límite de entrega: Avance 2">
+                      <span class="calendar-event__title">Avance 2 Arch</span>
+                      <span class="calendar-event__course">ING-410</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">16</span>
+                    <a href="#" class="calendar-event event-badge--evaluacion" data-category="evaluacion" title="Evaluación Parcial 2">
+                      <span class="calendar-event__title">Examen Parcial 2</span>
+                      <span class="calendar-event__course">INF-201</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day"><span class="calendar-day__number">17</span></div>
+
+                  <!-- Semana 4: Oct 18 - Oct 24 -->
+                  <div class="calendar-day"><span class="calendar-day__number">18</span></div>
+                  <div class="calendar-day"><span class="calendar-day__number">19</span></div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">20</span>
+                    <a href="#" class="calendar-event event-badge--limite" data-category="limite" title="Límite de entrega: Cronograma">
+                      <span class="calendar-event__title">Cronograma</span>
+                      <span class="calendar-event__course">ING-410</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">21</span>
+                    <a href="#" class="calendar-event event-badge--calificacion" data-category="calificacion" title="Publicación de calificaciones Parcial 2">
+                      <span class="calendar-event__title">Notas Parcial 2</span>
+                      <span class="calendar-event__course">INF-201</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">22</span>
+                    <a href="#" class="calendar-event event-badge--limite" data-category="limite" title="Límite de entrega: Sprint 1">
+                      <span class="calendar-event__title">Sprint 1 Figma</span>
+                      <span class="calendar-event__course">INF-201</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day"><span class="calendar-day__number">23</span></div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">24</span>
+                    <a href="#" class="calendar-event event-badge--evento" data-category="evento" title="Hackathon Estudiantil Ibero">
+                      <span class="calendar-event__title">Hackathon 2026</span>
+                      <span class="calendar-event__course">Ibero León</span>
+                    </a>
                   </div>
 
-                  <div class="activity-item">
-                    <div class="activity-item__header">
-                      <span class="activity-item__course">INF-201 · Diseño de Interfaces</span>
-                      <span class="activity-item__time">
-                        <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <circle cx="6" cy="6" r="5"/>
-                          <path d="M6 3v3l2 1"/>
-                        </svg>
-                        Jue 5 Nov, 23:59 hrs
-                      </span>
-                    </div>
-                    <h4 class="activity-item__title">Prototipo Interactivo en Figma (Sprint 1)</h4>
-                    <div class="activity-item__footer">
-                      <span class="activity-item__deliveries"><strong>3 de 24</strong> entregaron (13%)</span>
-                      <div class="activity-item__deliveries-bar" role="progressbar" aria-valuenow="13" aria-valuemin="0" aria-valuemax="100">
-                        <div class="activity-item__deliveries-fill" style="width: 13%;"></div>
-                      </div>
-                    </div>
+                  <!-- Semana 5: Oct 25 - Oct 31 -->
+                  <div class="calendar-day"><span class="calendar-day__number">25</span></div>
+                  <div class="calendar-day"><span class="calendar-day__number">26</span></div>
+                  <div class="calendar-day"><span class="calendar-day__number">27</span></div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">28</span>
+                    <a href="#" class="calendar-event event-badge--evaluacion" data-category="evaluacion" title="Evaluación Práctica Web">
+                      <span class="calendar-event__title">Examen Práctico</span>
+                      <span class="calendar-event__course">INF-305</span>
+                    </a>
                   </div>
+                  <div class="calendar-day"><span class="calendar-day__number">29</span></div>
+                  <div class="calendar-day">
+                    <span class="calendar-day__number">30</span>
+                    <a href="#" class="calendar-event event-badge--limite" data-category="limite" title="Entrega Final de Proyecto">
+                      <span class="calendar-event__title">Entrega Proyecto</span>
+                      <span class="calendar-event__course">ING-410</span>
+                    </a>
+                  </div>
+                  <div class="calendar-day"><span class="calendar-day__number">31</span></div>
 
                 </div>
 
