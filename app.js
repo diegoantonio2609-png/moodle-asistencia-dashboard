@@ -140,6 +140,24 @@
     });
   }
 
+  /**
+   * Filtros rápidos del panel de resumen lateral (Vista Lista Split-View)
+   */
+  function initSummaryFilters() {
+    const summaryFilters = document.querySelectorAll('.summary-panel__filters');
+    if (!summaryFilters.length) return;
+
+    summaryFilters.forEach(container => {
+      const chips = container.querySelectorAll('.summary-chip');
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('is-active'));
+          chip.classList.add('is-active');
+        });
+      });
+    });
+  }
+
 
   /* ===========================================================================
      3. CONMUTADOR DE VISTA DEL ORGANIZADOR HÍBRIDO (VISTA LISTA / VISTA CALENDARIO)
@@ -393,6 +411,7 @@
     initCalendarActions();
     initQuickMessageAction();
     initTeamsIntegrationAction();
+    initSummaryFilters();
   });
 
   // Exponer API global ligera si se requiere interactividad programática

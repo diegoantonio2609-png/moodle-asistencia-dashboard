@@ -2201,3 +2201,255 @@
 }
 
 
+/* =============================================================================
+   FASE 9 — REESTRUCTURACIÓN UNIFICADA, BRANDING Y CURSO NO PUBLICADO
+   ============================================================================= */
+
+/* Badges contextuales de rol */
+.main__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  padding: 3px var(--space-2-5);
+  border-radius: var(--badge-radius);
+  letter-spacing: 0.02em;
+}
+
+.role-badge--docente {
+  background-color: rgba(230, 0, 0, 0.08);
+  color: var(--brand-red);
+  border: 1px solid rgba(230, 0, 0, 0.2);
+}
+
+.role-badge--estudiante {
+  background-color: rgba(0, 107, 255, 0.08);
+  color: #006BFF;
+  border: 1px solid rgba(0, 107, 255, 0.2);
+}
+
+/* Grilla de Gadgets Inferior en Vista Docente (50% / 50%) */
+.monitoring-card--full {
+  width: 100%;
+}
+
+.gadgets-grid-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 860px) {
+  .gadgets-grid-half {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Split-View del Organizador de Actividades (70% / 30%) */
+.list-view-split {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (max-width: 920px) {
+  .list-view-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summary-panel {
+  background-color: var(--surface-tertiary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-md);
+  padding: var(--space-3-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.summary-panel__title {
+  font-family: var(--font-family-title);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summary-panel__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.summary-panel__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.summary-panel__label {
+  color: var(--text-secondary);
+}
+
+.summary-panel__val {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.summary-panel__val--alert {
+  color: var(--brand-red);
+}
+
+.summary-panel__divider {
+  height: 1px;
+  background-color: var(--border-normal);
+  margin: var(--space-1) 0;
+}
+
+.summary-panel__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1-5);
+}
+
+.summary-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  font-family: var(--font-family-body);
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.summary-chip:hover {
+  border-color: var(--border-contrast);
+  color: var(--text-primary);
+}
+
+.summary-chip.is-active {
+  background-color: var(--brand-red);
+  border-color: var(--brand-red);
+  color: var(--white-100);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Tarjeta de Curso No Publicado (Vista Estudiante) */
+.student-course-card--unpublished {
+  opacity: 0.72;
+  background-color: var(--surface-tertiary);
+  border-color: var(--border-normal);
+  transition: opacity 200ms ease, border-color 200ms ease;
+}
+
+.student-course-card--unpublished:hover {
+  opacity: 0.9;
+  border-color: var(--border-contrast);
+}
+
+.student-course-card__stripe--neutral {
+  background-color: var(--border-contrast);
+}
+
+.course-card__code-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.course-card__code--neutral {
+  color: var(--text-tertiary);
+}
+
+.unpublished-badge {
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  background-color: var(--surface-quaternary);
+  padding: 2px var(--space-2);
+  border-radius: var(--badge-radius);
+  border: 1px solid var(--border-normal);
+}
+
+.unpublished-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  background-color: var(--surface-primary);
+  border: 1px dashed var(--border-contrast);
+  border-radius: var(--radius-md);
+  padding: var(--space-2-5) var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.unpublished-notice__icon {
+  width: 15px;
+  height: 15px;
+  stroke: var(--text-tertiary);
+  fill: none;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.unpublished-notice__text {
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.btn-moodle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--surface-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.btn-moodle svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  flex-shrink: 0;
+}
+
+/* Botones desactivados */
+button:disabled,
+button[disabled] {
+  opacity: 0.55 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+  border-color: var(--border-normal) !important;
+}
