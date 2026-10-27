@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal del Estudiante — Ibero León | Moodle</title>
+
+  <!-- Hoja de estilos del Sistema de Diseño Ibero León -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Estilos estructurales complementarios de la vista -->
+  <style>
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family-body);
+      font-size: var(--font-size-sm);
+      line-height: 1.5;
+      color: var(--text-primary);
+      background-color: var(--surface-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header superior */
+    .header {
+      background-color: var(--surface-secondary);
+      border-bottom: 1px solid var(--border-normal);
+      padding: 0 var(--space-6);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header__brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      text-decoration: none;
+    }
+
+    .header__logo {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-md);
+      background-color: var(--brand-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .header__logo svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--white-100);
+    }
+
+    .header__title {
+      font-family: var(--font-family-title);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .header__subtitle {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-tertiary);
+      display: block;
+    }
+
+    /* Perfil del estudiante */
+    .header__profile {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      cursor: pointer;
+    }
+
+    .header__profile-info {
+      text-align: right;
+    }
+
+    .header__profile-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      display: block;
+    }
+
+    .header__profile-role {
+      font-size: var(--font-size-xs);
+      color: var(--text-tertiary);
+      display: block;
+    }
+
+    .header__avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      background-color: var(--surface-tertiary);
+      border: 2px solid var(--brand-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-family-title);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      flex-shrink: 0;
+    }
+
+    /* Layout: Sidebar + Main */
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      flex: 1;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* Sidebar de navegación */
+    .sidebar {
+      background-color: var(--surface-secondary);
+      border-right: 1px solid var(--border-normal);
+      padding: var(--space-4) 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .sidebar__section-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-quaternary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: var(--space-3) var(--space-4) var(--space-1-5);
+      margin-top: var(--space-2);
+    }
+
+    .sidebar__section-label:first-child {
+      margin-top: 0;
+    }
+
+    .sidebar__nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-0-5);
+      padding: 0 var(--space-2);
+    }
+
+    .nav-item__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-2-5) var(--space-3);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-tertiary);
+      transition: background-color 150ms ease, color 150ms ease;
+    }
+
+    .nav-item__link:hover {
+      background-color: var(--surface-tertiary);
+      color: var(--text-secondary);
+    }
+
+    .nav-item__link.is-active {
+      background-color: var(--surface-tertiary);
+      color: var(--brand-red);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .nav-item__icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .nav-item__link.is-active .nav-item__icon {
+      opacity: 1;
+    }
+
+    .nav-item__badge {
+      margin-left: auto;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      background-color: rgba(230, 0, 0, 0.1);
+      color: var(--brand-red);
+      padding: 1px 7px;
+      border-radius: var(--badge-radius);
+    }
+
+    .sidebar__divider {
+      height: 1px;
+      background-color: var(--border-normal);
+      margin: var(--space-2) var(--space-3);
+    }
+
+    /* Main Content */
+    .main {
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      background-color: var(--surface-primary);
+      overflow-y: auto;
+    }
+
+    .main__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .main__title {
+      font-family: var(--font-family-title);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .main__breadcrumb {
+      font-size: var(--font-size-xs);
+      color: var(--text-tertiary);
+      margin-top: var(--space-1);
+    }
+
+    .main__breadcrumb span {
+      color: var(--brand-red);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2-5) var(--space-4);
+      background-color: var(--brand-red);
+      color: var(--white-100);
+      font-family: var(--font-family-body);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 150ms ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--brand-red-dark);
+    }
+
+    /* Botón auxiliar para coordinar grupos */
+    .btn-secondary-full {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-2-5) var(--space-4);
+      background-color: var(--surface-primary);
+      color: var(--text-secondary);
+      border: 1px dashed var(--border-contrast);
+      border-radius: var(--radius-md);
+      font-family: var(--font-family-body);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 150ms ease;
+      margin-top: var(--space-1);
+    }
+
+    .btn-secondary-full:hover {
+      background-color: var(--surface-tertiary);
+      color: var(--text-primary);
+      border-color: var(--brand-red);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+      .main {
+        padding: var(--space-4);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header__profile-info {
+        display: none;
+      }
+      .progress-hero {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================================================================
+       HEADER — Encabezado superior con conmutador de rol
+       ========================================================================= -->
+  <header class="header" role="banner">
+
+    <!-- Marca / institución -->
+    <a href="student.html" class="header__brand" aria-label="Ibero León — Portal Estudiante">
+      <div class="header__logo" aria-hidden="true">
+        <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="7" y="2" width="4" height="14" rx="1"/>
+        </svg>
+      </div>
+      <div>
+        <span class="header__title">Ibero León</span>
+        <span class="header__subtitle">Portal del Estudiante</span>
+      </div>
+    </a>
+
+    <!-- Conmutador visual de rol -->
+    <div class="role-switcher" role="navigation" aria-label="Cambiar vista de rol">
+      <span class="role-switcher__label">Vista:</span>
+      <div class="role-switcher__pills">
+        <a href="index.html" class="role-pill" title="Cambiar a vista de Docente">
+          <svg class="role-pill__icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 1.5L1 4.5l6 3 6-3-6-3z"/>
+            <path d="M1 8.5l6 3 6-3"/>
+            <path d="M1 6l6 3 6-3"/>
+          </svg>
+          Docente
+        </a>
+        <a href="student.html" class="role-pill is-active" aria-current="page" title="Vista activa: Estudiante">
+          <svg class="role-pill__icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 1.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+            <path d="M2 12.5c0-2.5 2.5-4 5-4s5 1.5 5 4"/>
+          </svg>
+          Estudiante
+        </a>
+      </div>
+    </div>
+
+    <!-- Perfil del estudiante -->
+    <div class="header__profile" role="button" tabindex="0" aria-label="Menú de perfil del estudiante">
+      <div class="header__profile-info">
+        <span class="header__profile-name">Juan Pablo Navarro</span>
+        <span class="header__profile-role">Estudiante · Ing. Sistemas (6° Sem.)</span>
+      </div>
+      <div class="header__avatar" aria-hidden="true">JP</div>
+    </div>
+
+  </header>
+
+
+  <!-- =========================================================================
+       LAYOUT — Sidebar + Main
+       ========================================================================= -->
+  <div class="layout">
+
+    <!-- =======================================================================
+         SIDEBAR — Menú lateral del estudiante
+         ======================================================================= -->
+    <aside class="sidebar" role="navigation" aria-label="Menú del estudiante">
+
+      <!-- Sección General -->
+      <span class="sidebar__section-label">General</span>
+      <ul class="sidebar__nav" role="list">
+        <li>
+          <a href="student.html" class="nav-item__link is-active" aria-current="page">
+            <svg class="nav-item__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 9L9 2l7 7"/>
+              <path d="M4 7v8a1 1 0 001 1h3v-4h2v4h3a1 1 0 001-1V7"/>
+            </svg>
+            Inicio
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item__link">
+            <svg class="nav-item__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="14" height="12" rx="2"/>
+              <path d="M6 3v12M12 3v12M2 9h14"/>
+            </svg>
+            Mis Materias
+            <span class="nav-item__badge" aria-label="5 materias inscritas">5</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar__divider" role="separator"></div>
+
+      <!-- Sección Aprendizaje -->
+      <span class="sidebar__section-label">Aprendizaje</span>
+      <ul class="sidebar__nav" role="list">
+        <li>
+          <a href="#" class="nav-item__link">
+            <svg class="nav-item__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 14V6a1 1 0 011-1h10a1 1 0 011 1v8"/>
+              <path d="M2 14h14"/>
+              <path d="M7 9h4M7 12h4"/>
+            </svg>
+            Entregas y Tareas
+            <span class="nav-item__badge" aria-label="2 entregas pendientes">2</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item__link">
+            <svg class="nav-item__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 14h14M4 11V7M8 11V3M12 11V5"/>
+            </svg>
+            Calificaciones
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item__link">
+            <svg class="nav-item__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2l2 2-8 8H4v-2l8-8z"/>
+              <path d="M10 4l2 2"/>
+            </svg>
+            Materiales Fijados
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar__divider" role="separator"></div>
+
+      <!-- Sección Colaboración -->
+      <span class="sidebar__section-label">Comunidad</span>
+      <ul class="sidebar__nav" role="list">
+        <li>
+          <a href="#" class="nav-item__link">
+            <svg class="nav-item__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 15v-1.5a3 3 0 00-3-3H5a3 3 0 00-3 3V15"/>
+              <circle cx="7" cy="5.5" r="2.5"/>
+              <path d="M16 15v-1a2.5 2.5 0 00-2-2.4M13 3.6a2.5 2.5 0 010 4.8"/>
+            </svg>
+            Equipos de Estudio
+            <span class="nav-item__badge" aria-label="2 equipos activos">2</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item__link">
+            <svg class="nav-item__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="9" r="3"/>
+              <path d="M9 1v2M9 15v2M1 9h2M15 9h2"/>
+            </svg>
+            Configuración
+          </a>
+        </li>
+      </ul>
+
+    </aside><!-- /sidebar -->
+
+
+    <!-- =======================================================================
+         MAIN — Área principal del estudiante
+         ======================================================================= -->
+    <main class="main" id="main-content" role="main">
+
+      <!-- Cabecera de la sección -->
+      <div class="main__header">
+        <div>
+          <h1 class="main__title">Mi Espacio Académico</h1>
+          <p class="main__breadcrumb">
+            Ibero León / Estudiantes / <span>Panel Principal</span>
+          </p>
+        </div>
+        <button class="btn-primary" type="button">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M7 1v12M1 7h12"/>
+          </svg>
+          Nueva entrega
+        </button>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════════════════
+           CUADRÍCULA DEL ESTUDIANTADO (4 BLOQUES INSTITUCIONALES)
+           ═══════════════════════════════════════════════════════════════════ -->
+      <div class="student-grid">
+
+        <!-- ── BLOQUE 1: Indicador de Progreso General ── -->
+        <article class="student-card" aria-label="Indicador de progreso general del semestre">
+          <div class="student-card__header">
+            <div class="student-card__title-group">
+              <svg class="student-card__icon" viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="8" cy="8" r="6.5"/>
+                <path d="M8 4.5v3.5l2.5 1.5"/>
+              </svg>
+              <h2 class="student-card__title">Indicador de Progreso General</h2>
+            </div>
+            <span class="student-card__tag">Otoño 2026</span>
+          </div>
+
+          <div class="student-card__body">
+            
+            <!-- Hero con medidor en anillo de avance acumulado -->
+            <div class="progress-hero">
+              <div class="progress-hero__ring-wrap" aria-label="68% de avance semestral">
+                <svg viewBox="0 0 80 80" class="progress-hero__svg" aria-hidden="true">
+                  <circle class="progress-hero__track" cx="40" cy="40" r="34" />
+                  <!-- r=34, circunf = 213.63. 68% -> offset = 213.63 * (1 - 0.68) = 68.36 -->
+                  <circle class="progress-hero__indicator" cx="40" cy="40" r="34"
+                          stroke-dasharray="213.63"
+                          stroke-dashoffset="68.36" />
+                </svg>
+                <div class="progress-hero__center">
+                  <span class="progress-hero__pct">68%</span>
+                </div>
+              </div>
+
+              <div class="progress-hero__info">
+                <h3 class="progress-hero__heading">Semana 11 de 16</h3>
+                <p class="progress-hero__desc">
+                  Avance acumulado del semestre en curso. Mantienes estatus regular con ritmo óptimo de entregas y asistencia.
+                </p>
+              </div>
+            </div>
+
+            <!-- Sub-métricas académicas del alumno -->
+            <div class="progress-stats-grid">
+              
+              <div class="progress-stat-card">
+                <span class="progress-stat-card__label">Asistencia Global</span>
+                <span class="progress-stat-card__val">94%</span>
+                <span class="progress-stat-card__sub" style="color: #059669;">Cumple requisito (&gt;80%)</span>
+              </div>
+
+              <div class="progress-stat-card">
+                <span class="progress-stat-card__label">Promedio Ponderado</span>
+                <span class="progress-stat-card__val">9.3 <span style="font-size: 11px; font-weight: normal; color: var(--text-tertiary);">/ 10</span></span>
+                <span class="progress-stat-card__sub">Nivel Sobresaliente</span>
+              </div>
+
+              <div class="progress-stat-card">
+                <span class="progress-stat-card__label">Tareas Entregadas</span>
+                <span class="progress-stat-card__val">28 <span style="font-size: 11px; font-weight: normal; color: var(--text-tertiary);">/ 34</span></span>
+                <span class="progress-stat-card__sub">82% de cumplimiento</span>
+              </div>
+
+              <div class="progress-stat-card">
+                <span class="progress-stat-card__label">Créditos Aprobados</span>
+                <span class="progress-stat-card__val">36 <span style="font-size: 11px; font-weight: normal; color: var(--text-tertiary);">/ 42</span></span>
+                <span class="progress-stat-card__sub">5 materias activas</span>
+              </div>
+
+            </div>
+
+          </div>
+        </article>
+
+
+        <!-- ── BLOQUE 2: Materiales Fijados ── -->
+        <article class="student-card" aria-label="Materiales y rúbricas fijadas">
+          <div class="student-card__header">
+            <div class="student-card__title-group">
+              <svg class="student-card__icon" viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9.5 2.5l4 4L11 9l-1-1-3.5 3.5.5 2-2-.5L2 15l2-2.5-.5-2 3.5-3.5-1-1 3.5-2.5z"/>
+              </svg>
+              <h2 class="student-card__title">Materiales Fijados</h2>
+            </div>
+            <span class="student-card__tag">4 recursos clave</span>
+          </div>
+
+          <div class="student-card__body">
+            <ul class="pinned-list" role="list">
+
+              <!-- Material 1 -->
+              <li class="pinned-item">
+                <div class="pinned-item__main">
+                  <div class="pinned-item__icon-badge" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 1.5H3a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6.5L9 1.5z"/>
+                      <path d="M9 1.5v5h5"/>
+                    </svg>
+                  </div>
+                  <div class="pinned-item__info">
+                    <h3 class="pinned-item__title">Rúbrica Oficial - Proyecto Final</h3>
+                    <span class="pinned-item__meta">INF-201 · Diseño de Interfaces • PDF · 1.4 MB</span>
+                  </div>
+                </div>
+                <a href="#" class="pinned-item__btn" aria-label="Ver rúbrica de Proyecto Final">
+                  <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M1 7s2.5-4.5 6-4.5 6 4.5 6 4.5-2.5 4.5-6 4.5-6-4.5-6-4.5z"/>
+                    <circle cx="7" cy="7" r="2"/>
+                  </svg>
+                  Ver
+                </a>
+              </li>
+
+              <!-- Material 2 -->
+              <li class="pinned-item">
+                <div class="pinned-item__main">
+                  <div class="pinned-item__icon-badge" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 2h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/>
+                      <path d="M5 5h6M5 8h6M5 11h4"/>
+                    </svg>
+                  </div>
+                  <div class="pinned-item__info">
+                    <h3 class="pinned-item__title">Plantilla Reporte Técnico IEEE</h3>
+                    <span class="pinned-item__meta">ING-410 · Proyectos de Ing. • LaTeX/DOCX · 3.2 MB</span>
+                  </div>
+                </div>
+                <a href="#" class="pinned-item__btn" aria-label="Descargar plantilla IEEE">
+                  <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 1v8M3.5 5.5L7 9l3.5-3.5M1 12h12"/>
+                  </svg>
+                  Descargar
+                </a>
+              </li>
+
+              <!-- Material 3 -->
+              <li class="pinned-item">
+                <div class="pinned-item__main">
+                  <div class="pinned-item__icon-badge" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6.5 9.5a3 3 0 0 0 4.2 0l2.3-2.3a3 3 0 0 0-4.2-4.2l-1.2 1.2"/>
+                      <path d="M9.5 6.5a3 3 0 0 0-4.2 0L3 8.8a3 3 0 0 0 4.2 4.2l1.2-1.2"/>
+                    </svg>
+                  </div>
+                  <div class="pinned-item__info">
+                    <h3 class="pinned-item__title">Starter Kit React & Vite (GitHub)</h3>
+                    <span class="pinned-item__meta">INF-305 · Programación Web • Repositorio rama main</span>
+                  </div>
+                </div>
+                <a href="#" class="pinned-item__btn" aria-label="Abrir enlace del repositorio de React">
+                  <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 2H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V8"/>
+                    <path d="M8 1h5v5M5.5 8.5L13 1"/>
+                  </svg>
+                  Enlace
+                </a>
+              </li>
+
+              <!-- Material 4 -->
+              <li class="pinned-item">
+                <div class="pinned-item__main">
+                  <div class="pinned-item__icon-badge" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 3h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+                      <path d="M5 1v2M11 1v2M2 6h12"/>
+                    </svg>
+                  </div>
+                  <div class="pinned-item__info">
+                    <h3 class="pinned-item__title">Reglamento de Acreditación 2026</h3>
+                    <span class="pinned-item__meta">Servicios Escolares · Ibero León • PDF · 850 KB</span>
+                  </div>
+                </div>
+                <a href="#" class="pinned-item__btn" aria-label="Descargar reglamento escolar">
+                  <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 1v8M3.5 5.5L7 9l3.5-3.5M1 12h12"/>
+                  </svg>
+                  Ver PDF
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </article>
+
+
+        <!-- ── BLOQUE 3: Bandeja de Retroalimentación ── -->
+        <article class="student-card" aria-label="Bandeja de retroalimentación docente">
+          <div class="student-card__header">
+            <div class="student-card__title-group">
+              <svg class="student-card__icon" viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 10.5a2 2 0 0 1-2 2H4l-3 3V3a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v7.5z"/>
+                <path d="M4.5 5.5h7M4.5 8h4.5"/>
+              </svg>
+              <h2 class="student-card__title">Bandeja de Retroalimentación</h2>
+            </div>
+            <span class="student-card__badge" aria-label="3 nuevas observaciones">3 nuevas</span>
+          </div>
+
+          <div class="student-card__body">
+            <ul class="feedback-list" role="list">
+
+              <!-- Observación 1 -->
+              <li class="feedback-item">
+                <div class="feedback-item__top">
+                  <span class="feedback-item__course">INF-201 · Diseño de Interfaces</span>
+                  <span class="feedback-item__date">Hace 2 horas</span>
+                </div>
+                <h3 class="feedback-item__activity">Tarea 1: Wireframes y Guía de Estilos</h3>
+                <div class="feedback-item__comment-box">
+                  “Excelente propuesta de arquitectura de información. La jerarquía tipográfica es clara y los contrastes cumplen con el estándar WCAG AA. Solo cuida el espaciado en la vista móvil del menú.”
+                </div>
+                <div class="feedback-item__footer">
+                  <div class="feedback-item__teacher">
+                    <div class="feedback-item__teacher-avatar" aria-hidden="true">MT</div>
+                    <span>Dra. María Torres</span>
+                  </div>
+                  <span class="feedback-item__grade">Nota: 9.5 / 10</span>
+                </div>
+              </li>
+
+              <!-- Observación 2 -->
+              <li class="feedback-item">
+                <div class="feedback-item__top">
+                  <span class="feedback-item__course">INF-305 · Programación Web</span>
+                  <span class="feedback-item__date">Ayer</span>
+                </div>
+                <h3 class="feedback-item__activity">Práctica 2: Maquetación Responsive CSS</h3>
+                <div class="feedback-item__comment-box">
+                  “Buen uso de CSS Grid y Flexbox. Revisa la propiedad media query en 768px ya que se desborda ligeramente el contenedor de las tarjetas.”
+                </div>
+                <div class="feedback-item__footer">
+                  <div class="feedback-item__teacher">
+                    <div class="feedback-item__teacher-avatar" aria-hidden="true">CE</div>
+                    <span>Mtro. Carlos Estrada</span>
+                  </div>
+                  <span class="feedback-item__grade">Nota: 8.8 / 10</span>
+                </div>
+              </li>
+
+              <!-- Observación 3 -->
+              <li class="feedback-item">
+                <div class="feedback-item__top">
+                  <span class="feedback-item__course">ING-410 · Proyectos de Ingeniería</span>
+                  <span class="feedback-item__date">Hace 3 días</span>
+                </div>
+                <h3 class="feedback-item__activity">Avance 1: Marco Teórico y Justificación</h3>
+                <div class="feedback-item__comment-box">
+                  “El planteamiento del problema está sólidamente justificado con fuentes de IEEE y ACM de los últimos 3 años. Aprobado para continuar con el cronograma de Gantt.”
+                </div>
+                <div class="feedback-item__footer">
+                  <div class="feedback-item__teacher">
+                    <div class="feedback-item__teacher-avatar" aria-hidden="true">RG</div>
+                    <span>Dr. Roberto Garza</span>
+                  </div>
+                  <span class="feedback-item__grade">Nota: 10 / 10</span>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+        </article>
+
+
+        <!-- ── BLOQUE 4: Caja de Trabajo Colaborativo ── -->
+        <article class="student-card" aria-label="Caja de trabajo colaborativo y grupos de estudio">
+          <div class="student-card__header">
+            <div class="student-card__title-group">
+              <svg class="student-card__icon" viewBox="0 0 16 16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11.5 14v-1.5a2.5 2.5 0 0 0-2.5-2.5H5a2.5 2.5 0 0 0-2.5 2.5V14"/>
+                <circle cx="7" cy="5" r="2.5"/>
+                <path d="M15 14v-1a2 2 0 0 0-1.6-2M12 2.8a2 2 0 0 1 0 3.8"/>
+              </svg>
+              <h2 class="student-card__title">Caja de Trabajo Colaborativo</h2>
+            </div>
+            <span class="student-card__tag">2 equipos activos</span>
+          </div>
+
+          <div class="student-card__body">
+            <div class="collab-list">
+
+              <!-- Equipo 1 -->
+              <div class="collab-card">
+                <div class="collab-card__header">
+                  <div>
+                    <span class="collab-card__course">INF-201 · Diseño de Interfaces</span>
+                    <h3 class="collab-card__name">Squad UX — Proyecto Dashboard Moodle</h3>
+                  </div>
+                  <div class="collab-avatar-stack" title="4 integrantes del equipo">
+                    <div class="collab-avatar" title="Juan Pablo Navarro">JP</div>
+                    <div class="collab-avatar" title="Alejandro Morales">AM</div>
+                    <div class="collab-avatar" title="Sofía Valenzuela">SV</div>
+                    <div class="collab-avatar" title="Luis Ramos">+1</div>
+                  </div>
+                </div>
+
+                <div class="collab-card__meta">
+                  <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="6" cy="6" r="5"/>
+                    <path d="M6 3v3l2 1"/>
+                  </svg>
+                  <span>Próxima reunión: <strong>Hoy, 18:30 hrs</strong> (Revisión de prototipo)</span>
+                </div>
+
+                <div class="collab-card__actions">
+                  <a href="#" class="btn-collab-teams" role="button" aria-label="Unirse a la sala de Teams de Squad UX">
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="M12.5 5.5h-4a1 1 0 0 0-1 1V11a2.5 2.5 0 0 0 2.5 2.5h2.5a2 2 0 0 0 2-2V6.5a1 1 0 0 0-2-1zm-1.5-2a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                      <path d="M5.5 6H2a1 1 0 0 0-1 1v3.5A2.5 2.5 0 0 0 3.5 13H5a2 2 0 0 0 1.5-.7V7a1 1 0 0 0-1-1zm-1.5-2a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z" opacity="0.75"/>
+                    </svg>
+                    Sala Teams
+                  </a>
+                  <a href="#" class="btn-collab-link" target="_blank" rel="noopener noreferrer" aria-label="Abrir tablero Miro compartido">
+                    <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="2" width="10" height="10" rx="2"/>
+                      <path d="M5 2v10M9 2v10M2 6h10"/>
+                    </svg>
+                    Tablero Miro
+                  </a>
+                </div>
+              </div>
+
+              <!-- Equipo 2 -->
+              <div class="collab-card">
+                <div class="collab-card__header">
+                  <div>
+                    <span class="collab-card__course">INF-305 · Programación Web</span>
+                    <h3 class="collab-card__name">DevTeam Alpha — App Web Asistencia</h3>
+                  </div>
+                  <div class="collab-avatar-stack" title="3 integrantes del equipo">
+                    <div class="collab-avatar" title="Juan Pablo Navarro">JP</div>
+                    <div class="collab-avatar" title="Carlos Ortiz">CO</div>
+                    <div class="collab-avatar" title="Mariana Estrada">ME</div>
+                  </div>
+                </div>
+
+                <div class="collab-card__meta">
+                  <svg viewBox="0 0 12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="6" cy="6" r="5"/>
+                    <path d="M6 3v3l2 1"/>
+                  </svg>
+                  <span>Sprint activo: <strong>Entrega de Código</strong> (Mañana, 15:00 hrs)</span>
+                </div>
+
+                <div class="collab-card__actions">
+                  <a href="#" class="btn-collab-teams" role="button" aria-label="Abrir chat en Teams de DevTeam Alpha">
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="M12.5 5.5h-4a1 1 0 0 0-1 1V11a2.5 2.5 0 0 0 2.5 2.5h2.5a2 2 0 0 0 2-2V6.5a1 1 0 0 0-2-1zm-1.5-2a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                      <path d="M5.5 6H2a1 1 0 0 0-1 1v3.5A2.5 2.5 0 0 0 3.5 13H5a2 2 0 0 0 1.5-.7V7a1 1 0 0 0-1-1zm-1.5-2a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z" opacity="0.75"/>
+                    </svg>
+                    Canal Teams
+                  </a>
+                  <a href="#" class="btn-collab-link" target="_blank" rel="noopener noreferrer" aria-label="Abrir repositorio GitHub compartido">
+                    <svg viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M6 2H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V8"/>
+                      <path d="M8 1h5v5M5.5 8.5L13 1"/>
+                    </svg>
+                    Repo GitHub
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            <button class="btn-secondary-full" type="button">
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                <path d="M7 1v12M1 7h12"/>
+              </svg>
+              Coordinar nuevo grupo de estudio
+            </button>
+
+          </div>
+        </article>
+
+      </div><!-- /student-grid -->
+
+    </main><!-- /main -->
+
+  </div><!-- /layout -->
+
+  <!-- Lógica e interactividad global -->
+  <script src="app.js"></script>
+</body>
+</html>
