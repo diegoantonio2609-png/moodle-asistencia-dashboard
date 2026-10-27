@@ -284,7 +284,6 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .header {
@@ -305,9 +304,6 @@ body {
 .app-container,
 .layout {
   display: flex;
-  height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
-  overflow: hidden;
   flex: 1;
 }
 
@@ -330,7 +326,7 @@ body {
 .main-content {
   flex: 1;
   min-width: 0;
-  height: 100%;
+  height: 100vh;
   overflow-y: auto;
   background-color: var(--surface-primary);
   padding: var(--space-6);
