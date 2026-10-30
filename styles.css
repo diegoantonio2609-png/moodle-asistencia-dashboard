@@ -2520,3 +2520,553 @@ button[disabled] {
   box-shadow: none !important;
   border-color: var(--border-normal) !important;
 }
+
+
+/* =============================================================================
+   FASE 12 — MODALES MICRO, SELECTOR DE GRUPO E INTERACTIVIDAD DE EVALUACIONES
+   ============================================================================= */
+
+/* ──────────────────────────────────────────────────────────────────────────
+   1. Componente Modal Base
+   ────────────────────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 200ms ease, visibility 200ms ease;
+  padding: var(--space-4);
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-container {
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-width: 820px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.is-open .modal-container {
+  transform: scale(1) translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--surface-secondary);
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.modal-header__left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-title {
+  font-family: var(--font-family-title);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: var(--space-1-5);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 150ms ease;
+  flex-shrink: 0;
+}
+
+.modal-close:hover {
+  background-color: var(--surface-tertiary);
+  color: var(--text-primary);
+}
+
+.modal-close svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+}
+
+.modal-body {
+  padding: var(--space-5);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+}
+
+/* Styled Select para Header Modal y Gadgets */
+.modal-select {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  background-color: var(--surface-tertiary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-md);
+  padding: var(--space-1-5) var(--space-3);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.modal-select:hover,
+.modal-select:focus {
+  border-color: var(--brand-red);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   2. Modal de Evaluación Docente (index.html)
+   ────────────────────────────────────────────────────────────────────────── */
+.eval-filters-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.eval-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1-5) var(--space-3);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  background-color: var(--surface-tertiary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 150ms ease;
+  user-select: none;
+}
+
+.eval-pill:hover {
+  border-color: var(--border-contrast);
+  color: var(--text-primary);
+}
+
+.eval-pill.is-active {
+  background-color: var(--brand-red);
+  border-color: var(--brand-red);
+  color: var(--white-100);
+  font-weight: var(--font-weight-semibold);
+}
+
+.eval-pill__count {
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--border-normal);
+  color: var(--text-secondary);
+}
+
+.eval-pill.is-active .eval-pill__count {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: var(--white-100);
+}
+
+/* Grid de Estudiantes (10 alumnos de muestra) */
+.student-eval-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 680px) {
+  .student-eval-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.student-eval-card {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.student-eval-card:hover {
+  border-color: var(--border-contrast);
+  box-shadow: var(--shadow-sm);
+}
+
+.student-eval-card__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+}
+
+.student-eval-card__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-tertiary);
+  border: 1.5px solid var(--border-normal);
+  font-family: var(--font-family-title);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-eval-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.student-eval-card__name {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.student-eval-card__date {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.student-eval-card__badge--late {
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  color: var(--brand-red);
+  background-color: rgba(230, 0, 0, 0.08);
+  padding: 1px 6px;
+  border-radius: var(--badge-radius);
+}
+
+.student-eval-card__badge--none {
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-tertiary);
+  background-color: var(--surface-tertiary);
+  padding: 1px 6px;
+  border-radius: var(--badge-radius);
+}
+
+.student-eval-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.student-eval-card__grade {
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.student-eval-card__grade--low {
+  color: var(--brand-red);
+}
+
+.student-eval-card__grade--good {
+  color: #059669;
+}
+
+.btn-eval-grade {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1-5) var(--space-3);
+  font-family: var(--font-family-body);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--white-100);
+  background-color: var(--brand-red);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.btn-eval-grade:hover {
+  background-color: var(--brand-red-dark);
+}
+
+.btn-eval-remind {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1-5) var(--space-3);
+  font-family: var(--font-family-body);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  background-color: var(--surface-tertiary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.btn-eval-remind:hover {
+  background-color: var(--brand-red);
+  border-color: var(--brand-red);
+  color: var(--white-100);
+}
+
+/* Direct trigger styling for deliveries box */
+.deliveries-box[data-modal-trigger="eval-modal"] {
+  cursor: pointer;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.deliveries-box[data-modal-trigger="eval-modal"]:hover {
+  border-color: var(--brand-red);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   3. Interactividad y Selector en Gadget Distribución de Notas
+   ────────────────────────────────────────────────────────────────────────── */
+.grade-row {
+  cursor: pointer;
+  padding: var(--space-1) var(--space-1-5);
+  border-radius: var(--radius-sm);
+  transition: background-color 150ms ease, border-color 150ms ease;
+  border: 1px solid transparent;
+}
+
+.grade-row:hover {
+  background-color: var(--surface-tertiary);
+}
+
+.grade-row.is-selected {
+  background-color: rgba(230, 0, 0, 0.05);
+  border-color: rgba(230, 0, 0, 0.25);
+}
+
+.grade-students-box {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.grade-students-box__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.grade-students-box__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  list-style: none;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.grade-student-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  padding: 4px var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.grade-student-item__name {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.grade-student-item__score {
+  font-weight: var(--font-weight-bold);
+  color: var(--brand-red);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   4. Modal de Detalle de Actividades para Estudiante (student.html)
+   ────────────────────────────────────────────────────────────────────────── */
+.student-activity-status[data-modal-trigger="student-activity-modal"] {
+  cursor: pointer;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.student-activity-status[data-modal-trigger="student-activity-modal"]:hover {
+  border-color: var(--brand-red);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.student-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+}
+
+.student-task-card {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-md);
+  padding: var(--space-3-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: border-color 150ms ease;
+}
+
+.student-task-card:hover {
+  border-color: var(--border-contrast);
+}
+
+.student-task-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.student-task-card__title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.student-task-card__badge {
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  padding: 2px 7px;
+  border-radius: var(--badge-radius);
+}
+
+.student-task-card__badge--pending {
+  background-color: rgba(230, 0, 0, 0.1);
+  color: var(--brand-red);
+}
+
+.student-task-card__badge--submitted {
+  background-color: rgba(0, 107, 255, 0.1);
+  color: #006BFF;
+}
+
+.student-task-card__badge--graded {
+  background-color: rgba(5, 150, 105, 0.1);
+  color: #059669;
+}
+
+.student-task-card__badge--unsubmitted {
+  background-color: var(--surface-tertiary);
+  color: var(--text-tertiary);
+}
+
+.student-task-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: 2px;
+}
+
+.student-task-card__info {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.btn-task-action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1-5) var(--space-3);
+  font-family: var(--font-family-body);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--white-100);
+  background-color: var(--brand-red);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 150ms ease;
+}
+
+.btn-task-action:hover {
+  background-color: var(--brand-red-dark);
+}
+
+.btn-task-action--secondary {
+  color: var(--text-primary);
+  background-color: var(--surface-tertiary);
+  border: 1px solid var(--border-normal);
+}
+
+.btn-task-action--secondary:hover {
+  background-color: var(--surface-quaternary);
+  color: var(--text-primary);
+}
