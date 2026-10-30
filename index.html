@@ -961,7 +961,7 @@
               </div>
 
               <!-- 3. Resumen de Entregas de Actividad -->
-              <div class="deliveries-box" aria-label="Estado de entregas: Tarea 1: 18 de 24 entregaron">
+              <div class="deliveries-box" data-modal-trigger="eval-modal" data-course-code="INF-201 · Grupo A" data-course-name="Diseño de Interfaces" aria-label="Estado de entregas: Tarea 1: 18 de 24 entregaron - Clic para abrir modal de evaluación">
                 <div class="deliveries-box__header">
                   <div class="deliveries-box__title-wrap">
                     <svg class="deliveries-box__icon" viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1052,7 +1052,7 @@
               </div>
 
               <!-- 3. Resumen de Entregas de Actividad -->
-              <div class="deliveries-box" aria-label="Estado de entregas: Tarea 2: 15 de 18 entregaron">
+              <div class="deliveries-box" data-modal-trigger="eval-modal" data-course-code="INF-305 · Grupo B" data-course-name="Programación Web" aria-label="Estado de entregas: Tarea 2: 15 de 18 entregaron - Clic para abrir modal de evaluación">
                 <div class="deliveries-box__header">
                   <div class="deliveries-box__title-wrap">
                     <svg class="deliveries-box__icon" viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1143,7 +1143,7 @@
               </div>
 
               <!-- 3. Resumen de Entregas de Actividad -->
-              <div class="deliveries-box" aria-label="Estado de entregas: Tarea 1: 24 de 30 entregaron">
+              <div class="deliveries-box" data-modal-trigger="eval-modal" data-course-code="ING-410 · Grupo C" data-course-name="Proyectos de Ingeniería" aria-label="Estado de entregas: Tarea 1: 24 de 30 entregaron - Clic para abrir modal de evaluación">
                 <div class="deliveries-box__header">
                   <div class="deliveries-box__title-wrap">
                     <svg class="deliveries-box__icon" viewBox="0 0 14 14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1748,7 +1748,12 @@
                 </svg>
                 <h3 class="monitoring-card__title">Distribución de Notas</h3>
               </div>
-              <span class="monitoring-card__tag">72 evaluados</span>
+              <select class="modal-select" id="grade-group-select" aria-label="Filtrar distribución de notas por grupo">
+                <option value="all">Todos los grupos</option>
+                <option value="INF-201">INF-201 · Grupo A</option>
+                <option value="INF-305">INF-305 · Grupo B</option>
+                <option value="ING-410">ING-410 · Grupo C</option>
+              </select>
             </div>
 
             <div class="monitoring-card__body">
@@ -1756,17 +1761,17 @@
               <!-- Resumen del promedio general -->
               <div class="grade-summary-bar">
                 <span class="grade-summary-bar__label">Promedio General Activo</span>
-                <span class="grade-summary-bar__value">84.2% · Satisfactorio</span>
+                <span class="grade-summary-bar__value" id="grade-summary-val">84.2% · Satisfactorio</span>
               </div>
 
               <!-- Gráfico de barras por rangos -->
               <div class="grade-chart" role="region" aria-label="Barras de distribución de calificaciones">
 
                 <!-- Rango 1: 90-100% (Sobresaliente) -->
-                <div class="grade-row">
+                <div class="grade-row" data-range="90-100" role="button" tabindex="0" aria-label="Rango 90-100%">
                   <div class="grade-row__header">
                     <span class="grade-row__range">90–100% <span class="grade-row__title">(Sobresaliente)</span></span>
-                    <span class="grade-row__count">28 alum. (39%)</span>
+                    <span class="grade-row__count" id="count-90-100">28 alum. (39%)</span>
                   </div>
                   <div class="grade-row__track" role="progressbar" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100">
                     <div class="grade-row__bar grade-row__bar--sobresaliente" style="width: 38.9%;"></div>
@@ -1774,10 +1779,10 @@
                 </div>
 
                 <!-- Rango 2: 80-89% (Satisfactorio) -->
-                <div class="grade-row">
+                <div class="grade-row" data-range="80-89" role="button" tabindex="0" aria-label="Rango 80-89%">
                   <div class="grade-row__header">
                     <span class="grade-row__range">80–89% <span class="grade-row__title">(Satisfactorio)</span></span>
-                    <span class="grade-row__count">24 alum. (33%)</span>
+                    <span class="grade-row__count" id="count-80-89">24 alum. (33%)</span>
                   </div>
                   <div class="grade-row__track" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
                     <div class="grade-row__bar grade-row__bar--satisfactorio" style="width: 33.3%;"></div>
@@ -1785,10 +1790,10 @@
                 </div>
 
                 <!-- Rango 3: 70-79% (Suficiente) -->
-                <div class="grade-row">
+                <div class="grade-row" data-range="70-79" role="button" tabindex="0" aria-label="Rango 70-79%">
                   <div class="grade-row__header">
                     <span class="grade-row__range">70–79% <span class="grade-row__title">(Suficiente)</span></span>
-                    <span class="grade-row__count">13 alum. (18%)</span>
+                    <span class="grade-row__count" id="count-70-79">13 alum. (18%)</span>
                   </div>
                   <div class="grade-row__track" role="progressbar" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
                     <div class="grade-row__bar grade-row__bar--suficiente" style="width: 18.1%;"></div>
@@ -1796,10 +1801,10 @@
                 </div>
 
                 <!-- Rango 4: <70% (En Riesgo - Alerta Roja Ibero León) -->
-                <div class="grade-row grade-row--risk">
+                <div class="grade-row grade-row--risk" data-range="<70" role="button" tabindex="0" aria-label="Rango Menos de 70%">
                   <div class="grade-row__header">
                     <span class="grade-row__range">&lt;70% <span class="grade-row__title">(En Riesgo)</span></span>
-                    <span class="grade-row__count">7 alum. (10%)</span>
+                    <span class="grade-row__count" id="count-less-70">7 alum. (10%)</span>
                   </div>
                   <div class="grade-row__track" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
                     <div class="grade-row__bar grade-row__bar--riesgo" style="width: 9.7%;"></div>
@@ -1808,7 +1813,18 @@
 
               </div>
 
-              <p class="monitoring-card__note">7 estudiantes requieren intervención académica preventiva</p>
+              <!-- Lista rápida de estudiantes correspondiente al rango seleccionado -->
+              <div class="grade-students-box" id="grade-students-box" style="display: none;">
+                <div class="grade-students-box__header">
+                  <span id="grade-students-box-title">Estudiantes en el Rango</span>
+                  <span class="monitoring-card__tag" id="grade-students-box-tag">0 alumnos</span>
+                </div>
+                <ul class="grade-students-box__list" id="grade-students-list">
+                  <!-- Populated dynamically via app.js -->
+                </ul>
+              </div>
+
+              <p class="monitoring-card__note" id="grade-risk-note">7 estudiantes requieren intervención académica preventiva</p>
             </div>
           </article>
 
@@ -1818,6 +1834,52 @@
     </main><!-- /main -->
 
   </div><!-- /app-container -->
+
+  <!-- =========================================================================
+       MODAL: EVALUACIÓN DOCENTE (Fase 12)
+       ========================================================================= -->
+  <div class="modal-overlay" id="eval-modal" role="dialog" aria-modal="true" aria-labelledby="eval-modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header__left">
+          <h3 class="modal-title" id="eval-modal-title">Evaluación de Entregas</h3>
+          <select class="modal-select" id="eval-task-select" aria-label="Seleccionar tarea o actividad">
+            <option value="task1">Tarea 1: Wireframes</option>
+            <option value="task2">Tarea 2: Prototipo UI</option>
+            <option value="all">Todas las actividades</option>
+          </select>
+        </div>
+        <button class="modal-close" type="button" aria-label="Cerrar modal" data-modal-close>
+          <svg viewBox="0 0 14 14" aria-hidden="true">
+            <path d="M1 1l12 12M13 1L1 13"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Filtros por estatus -->
+        <div class="eval-filters-bar" role="tablist" aria-label="Filtrar entregas por estatus">
+          <button class="eval-pill is-active" type="button" data-eval-filter="all">
+            Todos <span class="eval-pill__count" id="eval-count-all">10</span>
+          </button>
+          <button class="eval-pill" type="button" data-eval-filter="pending">
+            Esperando calificación <span class="eval-pill__count" id="eval-count-pending">4</span>
+          </button>
+          <button class="eval-pill" type="button" data-eval-filter="missing">
+            Sin entrega <span class="eval-pill__count" id="eval-count-missing">2</span>
+          </button>
+          <button class="eval-pill" type="button" data-eval-filter="low">
+            Menos del 60% <span class="eval-pill__count" id="eval-count-low">1</span>
+          </button>
+        </div>
+
+        <!-- Cuadrícula de 10 estudiantes de muestra -->
+        <div class="student-eval-grid" id="student-eval-grid">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Lógica e interactividad global -->
   <script src="app.js"></script>

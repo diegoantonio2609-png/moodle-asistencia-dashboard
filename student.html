@@ -554,7 +554,7 @@
               </div>
 
               <!-- Resumen de actividad actual del estudiante -->
-              <div class="student-activity-status">
+              <div class="student-activity-status" data-modal-trigger="student-activity-modal" data-course-code="INF-201 · Grupo A" data-course-name="Diseño de Interfaces" aria-label="Actividad Actual: Clic para ver detalle de actividades">
                 <div class="student-activity-status__header">
                   <span class="student-activity-status__label">Actividad Actual</span>
                   <span class="student-activity-status__badge student-activity-status__badge--delivered">Entregada 95/100</span>
@@ -665,7 +665,7 @@
               </div>
 
               <!-- Resumen de actividad actual del estudiante -->
-              <div class="student-activity-status">
+              <div class="student-activity-status" data-modal-trigger="student-activity-modal" data-course-code="INF-305 · Grupo B" data-course-name="Programación Web" aria-label="Actividad Actual: Clic para ver detalle de actividades">
                 <div class="student-activity-status__header">
                   <span class="student-activity-status__label">Actividad Actual</span>
                   <span class="student-activity-status__badge student-activity-status__badge--pending">Pendiente - Vence hoy</span>
@@ -722,7 +722,7 @@
               </div>
 
               <!-- Resumen de actividad actual del estudiante -->
-              <div class="student-activity-status">
+              <div class="student-activity-status" data-modal-trigger="student-activity-modal" data-course-code="ING-410 · Grupo C" data-course-name="Proyectos de Ingeniería" aria-label="Actividad Actual: Clic para ver detalle de actividades">
                 <div class="student-activity-status__header">
                   <span class="student-activity-status__label">Actividad Actual</span>
                   <span class="student-activity-status__badge student-activity-status__badge--delivered">Entregada 100/100</span>
@@ -1570,6 +1570,51 @@
     </main><!-- /main -->
 
   </div><!-- /app-container -->
+
+  <!-- =========================================================================
+       MODAL: DETALLE DE ACTIVIDADES PARA ESTUDIANTE (Fase 12)
+       ========================================================================= -->
+  <div class="modal-overlay" id="student-activity-modal" role="dialog" aria-modal="true" aria-labelledby="student-activity-modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header__left">
+          <h3 class="modal-title" id="student-activity-modal-title">Actividades de la Materia</h3>
+          <span class="role-badge role-badge--estudiante" id="student-activity-modal-course">INF-201 · Diseño de Interfaces</span>
+        </div>
+        <button class="modal-close" type="button" aria-label="Cerrar modal" data-modal-close>
+          <svg viewBox="0 0 14 14" aria-hidden="true">
+            <path d="M1 1l12 12M13 1L1 13"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Filtros por estado -->
+        <div class="eval-filters-bar" role="tablist" aria-label="Filtrar tareas por estado">
+          <button class="eval-pill is-active" type="button" data-student-task-filter="all">
+            Todas <span class="eval-pill__count" id="st-count-all">4</span>
+          </button>
+          <button class="eval-pill" type="button" data-student-task-filter="pending">
+            Pendientes <span class="eval-pill__count" id="st-count-pending">1</span>
+          </button>
+          <button class="eval-pill" type="button" data-student-task-filter="submitted">
+            Entregadas <span class="eval-pill__count" id="st-count-submitted">1</span>
+          </button>
+          <button class="eval-pill" type="button" data-student-task-filter="graded">
+            Calificadas <span class="eval-pill__count" id="st-count-graded">1</span>
+          </button>
+          <button class="eval-pill" type="button" data-student-task-filter="unsubmitted">
+            Sin entregar <span class="eval-pill__count" id="st-count-unsubmitted">1</span>
+          </button>
+        </div>
+
+        <!-- Lista de tareas -->
+        <div class="student-task-list" id="student-task-list">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Lógica e interactividad global -->
   <script src="app.js"></script>
